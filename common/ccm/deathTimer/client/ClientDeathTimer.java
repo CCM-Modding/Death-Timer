@@ -2,6 +2,8 @@ package ccm.deathTimer.client;
 
 import java.util.EnumSet;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import ccm.deathTimer.Config;
@@ -16,14 +18,33 @@ public class ClientDeathTimer implements IScheduledTickHandler
 {
     public static boolean enable;
     public static int time;
+    public static int X, Y, Z, dim;
     
     @ForgeSubscribe
     public void handleDeath(PlayerDropsEvent e)
     {
         if (!Config.enableDeathTimer) return;
         
+        X = (int) e.entityPlayer.posX;
+        Y = (int) e.entityPlayer.posY;
+        Z = (int) e.entityPlayer.posZ;
+        dim = e.entityPlayer.dimension;
+        
         enable = true;
         time = 60 * 5;
+    }
+    
+    public static int getDistance()
+    {
+        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+        
+        if (!enable) return 0;
+        
+        double x = player.posX - X;
+        double y = player.posY - Y;
+        double z = player.posZ - Z;
+        
+        return (int) Math.sqrt((x*x) + (y*y) + (z*z));
     }
 
     @Override
