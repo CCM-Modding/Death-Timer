@@ -1,19 +1,21 @@
 package ccm.deathTimer;
 import java.util.logging.Level;
 
+import ccm.deathTimer.proxy.CommonProxy;
+import ccm.deathTimer.utils.lib.Archive;
+import ccm.deathTimer.utils.lib.Locations;
+import ccm.nucleum_omnium.IMod;
+import ccm.nucleum_omnium.handler.Handler;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.Mod.FingerprintWarning;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.Mod.PreInit;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLFingerprintViolationEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
-import ccm.nucleum_omnium.IMod;
-import ccm.nucleum_omnium.handler.Handler;
-import ccm.deathTimer.proxy.CommonProxy;
-import ccm.deathTimer.utils.lib.Locations;
-import ccm.deathTimer.utils.lib.Archive;
 
 @Mod(modid = Archive.MOD_ID,
 name = Archive.MOD_NAME,
@@ -63,9 +65,15 @@ public class DeathTimer implements IMod
         Handler.log(Level.SEVERE, Archive.INVALID_FINGERPRINT_MSG);
     }
     
+    @PreInit
+    public void preInit(final FMLPreInitializationEvent event)
+    {
+        Config.runConfig(event.getSuggestedConfigurationFile());
+    }
+    
     @Init
     public void init(final FMLInitializationEvent event)
     {
-        proxy.initCapes();
+        proxy.init();
     }
 }

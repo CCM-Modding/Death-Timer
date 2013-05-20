@@ -1,19 +1,23 @@
 package ccm.deathTimer.proxy;
 
+import net.minecraftforge.common.MinecraftForge;
+import ccm.deathTimer.client.ClientDeathTimer;
+import ccm.deathTimer.client.HUD;
 import ccm.deathTimer.utils.lib.Locations;
 
 import com.jadarstudios.api.developercapesapi.DeveloperCapesAPI;
 
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
+
 public class ClientProxy extends CommonProxy
 {
-    /**
-     * Initializes the Capes. Original code that adds capes is found in this
-     * Github repository: https://github.com/jadar/DeveloperCapesAPI
-     */
     @Override
-    public void initCapes()
+    public void init()
     {
-        // Link for the file that makes the capes work
         DeveloperCapesAPI.getInstance().init(Locations.CAPES);
+        MinecraftForge.EVENT_BUS.register(new HUD());
+        MinecraftForge.EVENT_BUS.register(new ClientDeathTimer());
+        TickRegistry.registerScheduledTickHandler(new ClientDeathTimer(), Side.CLIENT);
     }
 }
