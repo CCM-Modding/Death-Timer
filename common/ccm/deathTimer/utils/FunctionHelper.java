@@ -1,15 +1,16 @@
 package ccm.deathTimer.utils;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.EnumChatFormatting;
 
 public class FunctionHelper
 {
     public static String timeColor(int time)
     {
-        if (time <= 30) return "\u00a7c";
-        else if (time <= 60) return "\u00a76";
-        else if (time <= 150) return "\u00a7e";
-        else return "";
+        if (time <= 30) return EnumChatFormatting.RED.toString();
+        else if (time <= 60) return EnumChatFormatting.GOLD.toString();
+        else if (time <= 150) return EnumChatFormatting.YELLOW.toString();
+        else return EnumChatFormatting.GREEN.toString();
     }
     
     /**

@@ -31,7 +31,7 @@ public class ClientDeathTimer implements IScheduledTickHandler
     {
         if (time != 0)
         {
-            time = time - 30;
+            time--;
         }
         else if (enable)
         {
