@@ -1,6 +1,8 @@
 package ccm.deathTimer.utils;
 
+import ccm.nucleum_omnium.utils.lib.Arrows;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumChatFormatting;
 
 public class FunctionHelper
@@ -11,6 +13,19 @@ public class FunctionHelper
         else if (time <= 60) return EnumChatFormatting.GOLD.toString();
         else if (time <= 150) return EnumChatFormatting.YELLOW.toString();
         else return EnumChatFormatting.GREEN.toString();
+    }
+    
+    public static String getArrowTo(int X, int Z, EntityPlayer player)
+    {
+        float pAngle = 360 + player.rotationYaw;
+        pAngle %= 360;
+        
+        float dAngle = 360 - (float) Math.toDegrees(Math.atan2(X - player.posX, Z - player.posZ));
+        dAngle %= 360;
+        float angle = 360 + dAngle - pAngle;
+        angle %= 360;
+        
+        return "" + Arrows.getArrowFromAngle(angle);
     }
     
     /**

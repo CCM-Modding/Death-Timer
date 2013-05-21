@@ -38,7 +38,7 @@ public class ClientDeathTimer implements IScheduledTickHandler
     {
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         
-        if (!enable) return 0;
+        if (!enable || player.dimension != dim) return 0;
         
         double x = player.posX - X;
         double y = player.posY - Y;
@@ -82,5 +82,13 @@ public class ClientDeathTimer implements IScheduledTickHandler
     public int nextTickSpacing()
     {
         return 19;
+    }
+
+    public static String getArrow()
+    {
+        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+        if (!enable || player.dimension != dim) return "*42*";
+        
+        return FunctionHelper.getArrowTo(X, Z, player);
     }
 }
