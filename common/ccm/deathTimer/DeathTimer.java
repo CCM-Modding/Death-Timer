@@ -2,6 +2,7 @@ package ccm.deathTimer;
 import java.util.logging.Level;
 
 import ccm.deathTimer.proxy.CommonProxy;
+import ccm.deathTimer.server.DeathTracker;
 import ccm.deathTimer.utils.lib.Archive;
 import ccm.deathTimer.utils.lib.Locations;
 import ccm.nucleum_omnium.IMod;
@@ -75,5 +76,6 @@ public class DeathTimer implements IMod
     public void init(final FMLInitializationEvent event)
     {
         proxy.init();
+        new DeathTracker();
     }
 }
