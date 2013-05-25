@@ -13,6 +13,11 @@ import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+/**
+ * TODO: replace...
+ * @author Dries007
+ *
+ */
 @SideOnly(Side.CLIENT)
 public class ClientDeathTimer implements IScheduledTickHandler
 {

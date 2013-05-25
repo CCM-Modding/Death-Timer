@@ -1,19 +1,18 @@
 package ccm.deathTimer.server;
 
-import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.HashMap;
 
-import ccm.deathTimer.utils.TimerData;
+import ccm.deathTimer.timerTypes.TimerData;
 import ccm.deathTimer.utils.lib.Archive;
-
 import cpw.mods.fml.common.IScheduledTickHandler;
 import cpw.mods.fml.common.TickType;
-import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 public class ServerTimer implements IScheduledTickHandler
 {
+    private static ServerTimer instance;
     public ServerTimer()
     {
         instance = this;
@@ -25,20 +24,30 @@ public class ServerTimer implements IScheduledTickHandler
         return instance;
     }
     
-    private static ServerTimer instance;
-    private ArrayList<TimerData> timerList = new ArrayList<TimerData>();
+    /*
+     * Useful stuff starts here.
+     */
+    public HashMap<String, TimerData> timerList = new HashMap<String, TimerData>();
+    
+    public void addTimer(TimerData data)
+    {
+        timerList.put(data.label, data);
+        data.sendUpdate();
+    }
     
     @Override
     public void tickStart(EnumSet<TickType> type, Object... tickData)
     {
-        for (TimerData data : timerList)
+        for (TimerData data : timerList.values())
         {
             data.time --;
+            
             if (data.time % data.updateInteval == 0)
-            {
-                if (data.dimOnly) PacketDispatcher.sendPacketToAllInDimension(data.getPayload(), data.dim);
-                else PacketDispatcher.sendPacketToAllPlayers(data.getPayload());
-            }
+                data.sendUpdate();
+            else if (data.time == 1 || data.time == -1)
+                data.sendUpdate();
+            else if (data.time == 0)
+                timerList.remove(data.label);
         }
     }
 

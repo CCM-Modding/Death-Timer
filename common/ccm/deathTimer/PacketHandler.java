@@ -6,7 +6,8 @@ import java.io.IOException;
 
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
-import ccm.deathTimer.utils.TimerData;
+import ccm.deathTimer.client.ClientTimer;
+import ccm.deathTimer.timerTypes.TimerData;
 import ccm.deathTimer.utils.lib.Archive;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
@@ -28,24 +29,29 @@ public class PacketHandler implements IPacketHandler
             switch (ID)
             {
                 case TimerData.PACKETID:
+                {
                     TimerData data = new TimerData();
-                    data.label = stream.readUTF();
+                    data.label = "TEST";
+                    //data.label = stream.readUTF();
                     data.time = stream.readInt();
                     
-                    data.dimOnly = stream.readBoolean();
-                    if (data.dimOnly)
+                    if (stream.readBoolean())
                     {
+                        data.dimOnly = true;
                         data.dim = stream.readInt();
                     }
                     
-                    data.point = stream.readBoolean();
-                    if (data.point)
+                    if (stream.readBoolean())
                     {
+                        data.point = true;
                         data.X = stream.readInt();
                         data.Y = stream.readInt();
                         data.Z = stream.readInt();
                         data.dim = stream.readInt();
                     }
+                    
+                    ClientTimer.getInstance().updateTimer(data);
+                }
                 break;
             }
         }

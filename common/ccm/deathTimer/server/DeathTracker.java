@@ -8,7 +8,6 @@ import net.minecraft.server.management.ServerConfigurationManager;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import ccm.deathTimer.utils.DeathData;

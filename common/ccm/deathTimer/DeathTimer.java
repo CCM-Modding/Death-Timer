@@ -1,6 +1,7 @@
 package ccm.deathTimer;
 import java.util.logging.Level;
 
+import ccm.deathTimer.commands.Timer;
 import ccm.deathTimer.proxy.CommonProxy;
 import ccm.deathTimer.server.DeathTracker;
 import ccm.deathTimer.server.ServerTimer;
@@ -80,12 +81,14 @@ public class DeathTimer implements IMod
     public void init(final FMLInitializationEvent event)
     {
         proxy.init();
-        new DeathTracker();
+        //new DeathTracker();
     }
     
     @ServerStarting
     public void serverStart(final FMLServerStartingEvent event)
     {
+        event.registerServerCommand(new Timer());
+        
         new ServerTimer();
     }
 }
