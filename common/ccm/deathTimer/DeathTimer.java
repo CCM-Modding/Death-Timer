@@ -37,25 +37,25 @@ public class DeathTimer implements IMod
     public static CommonProxy   proxy;
     
     @Override
-    public String getModId()
+    public String getId()
     {
         return Archive.MOD_ID;
     }
 
     @Override
-    public String getModName()
+    public String getName()
     {
         return Archive.MOD_NAME;
     }
 
     @Override
-    public String getModPrefix()
+    public String getPrefix()
     {
         return Archive.MOD_PREFIX;
     }
 
     @Override
-    public String getModVersion()
+    public String getVersion()
     {
         return Archive.MOD_VERSION;
     }
@@ -63,7 +63,7 @@ public class DeathTimer implements IMod
     @FingerprintWarning
     public void invalidFingerprint(final FMLFingerprintViolationEvent event)
     {
-        Handler.log(Level.SEVERE, Archive.INVALID_FINGERPRINT_MSG);
+        Handler.log(this, Level.SEVERE, Archive.INVALID_FINGERPRINT_MSG);
     }
     
     @PreInit
