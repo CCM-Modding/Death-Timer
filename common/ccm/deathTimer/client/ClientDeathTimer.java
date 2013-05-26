@@ -62,7 +62,7 @@ public class ClientDeathTimer implements IScheduledTickHandler
         else if (enable)
         {
             enable = false;
-            if (Config.enableDeathSound) FunctionHelper.playDragonSound();
+            if (Config.enableDeathSound) FunctionHelper.playSound("mob.enderdragon.end", 5F, 1F);
         }
     }
 

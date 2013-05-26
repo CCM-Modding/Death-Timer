@@ -6,6 +6,7 @@ import java.util.HashMap;
 import net.minecraft.entity.player.EntityPlayer;
 
 import ccm.deathTimer.timerTypes.TimerData;
+import ccm.deathTimer.utils.FunctionHelper;
 import ccm.deathTimer.utils.lib.Archive;
 import cpw.mods.fml.common.IPlayerTracker;
 import cpw.mods.fml.common.IScheduledTickHandler;
@@ -47,6 +48,11 @@ public class ClientTimer implements IScheduledTickHandler,  IPlayerTracker
         for (TimerData data : timerList.values())
         {
             data.time --;
+            if (data.time < 0)
+            {
+                if (data.useSound) FunctionHelper.playSound(data.sound, data.soundVolume, data.soundPitch);
+                timerList.remove(data.label);
+            }
         }
     }
 
@@ -84,7 +90,7 @@ public class ClientTimer implements IScheduledTickHandler,  IPlayerTracker
     @Override
     public void onPlayerLogin(EntityPlayer player)
     {
-        timerList.put("LOGIN TEST", new TimerData("LOGIN TEST", 300));
+        
     }
 
     @Override

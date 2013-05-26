@@ -42,11 +42,9 @@ public class ServerTimer implements IScheduledTickHandler
         {
             data.time --;
             
-            if (data.time % data.updateInteval == 0)
+            if (data.time % data.updateInteval == 0 || data.time <= 0)
                 data.sendUpdate();
-            else if (data.time == 1 || data.time == -1)
-                data.sendUpdate();
-            else if (data.time == 0)
+            if (data.time <= 0)
                 timerList.remove(data.label);
         }
     }

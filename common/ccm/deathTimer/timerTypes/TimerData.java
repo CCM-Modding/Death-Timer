@@ -37,6 +37,14 @@ public class TimerData implements ICustomPacket
      */
     public int updateInteval = 10;
     
+    /*
+     * Sound info
+     */
+    public boolean useSound = true;
+    public String sound;
+    public float soundVolume;
+    public float soundPitch;
+    
     public TimerData()
     {}
     
@@ -56,7 +64,7 @@ public class TimerData implements ICustomPacket
         {
             stream.writeInt(PACKETID);
             
-            //stream.writeUTF(label);
+            stream.writeUTF(label);
             stream.writeInt(time);
             
             stream.writeBoolean(dimOnly);
@@ -72,6 +80,14 @@ public class TimerData implements ICustomPacket
                 stream.writeInt(Y);
                 stream.writeInt(Z);
                 stream.writeInt(dim);
+            }
+            
+            stream.writeBoolean(useSound);
+            if (useSound)
+            {
+                stream.writeUTF(sound);
+                stream.writeFloat(soundVolume);
+                stream.writeFloat(soundPitch);
             }
             
             stream.close();
@@ -95,7 +111,7 @@ public class TimerData implements ICustomPacket
     {
         ArrayList<String> text = new ArrayList<String>();
         
-        text.add(label + ": " + FunctionHelper.timeColor(time) + FunctionHelper.parseTime(time));
+        text.add(label + ": " + FunctionHelper.timeColor(time) + "T-" + FunctionHelper.parseTime(time));
         if (point && player.dimension == dim) text.add(getDistance(player) + " " + FunctionHelper.getArrowTo(X, Z, player));
         else if (point && player.dimension != dim) text.add(DimensionManager.getWorld(dim).getProviderName());
         

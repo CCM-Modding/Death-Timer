@@ -2,8 +2,8 @@ package ccm.deathTimer;
 import java.util.logging.Level;
 
 import ccm.deathTimer.commands.Timer;
+import ccm.deathTimer.network.PacketHandler;
 import ccm.deathTimer.proxy.CommonProxy;
-import ccm.deathTimer.server.DeathTracker;
 import ccm.deathTimer.server.ServerTimer;
 import ccm.deathTimer.utils.lib.Archive;
 import ccm.deathTimer.utils.lib.Locations;

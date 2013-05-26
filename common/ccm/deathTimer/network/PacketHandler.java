@@ -1,4 +1,4 @@
-package ccm.deathTimer;
+package ccm.deathTimer.network;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -13,7 +13,7 @@ import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
 public class PacketHandler implements IPacketHandler
-{
+{   
     @Override
     public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player playerFake)
     {
@@ -24,15 +24,14 @@ public class PacketHandler implements IPacketHandler
 
         try
         {
-            int ID = stream.read();
+            int ID = stream.readInt();
 
             switch (ID)
             {
                 case TimerData.PACKETID:
                 {
                     TimerData data = new TimerData();
-                    data.label = "TEST";
-                    //data.label = stream.readUTF();
+                    data.label = stream.readUTF();
                     data.time = stream.readInt();
                     
                     if (stream.readBoolean())
@@ -50,10 +49,21 @@ public class PacketHandler implements IPacketHandler
                         data.dim = stream.readInt();
                     }
                     
+                    if (stream.readBoolean())
+                    {
+                        data.useSound = true;
+                        data.sound = stream.readUTF();
+                        data.soundVolume = stream.readFloat();
+                        data.soundPitch = stream.readFloat();
+                    }
+                    
                     ClientTimer.getInstance().updateTimer(data);
                 }
                 break;
             }
+            
+            streambyte.close();
+            stream.close();
         }
         catch (IOException e)
         {

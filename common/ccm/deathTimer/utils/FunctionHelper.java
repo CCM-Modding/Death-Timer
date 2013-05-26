@@ -1,7 +1,9 @@
 package ccm.deathTimer.utils;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import ccm.nucleum_omnium.utils.lib.Arrows;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SoundManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumChatFormatting;
 
@@ -48,26 +50,30 @@ public class FunctionHelper
 
         if (weeks != 0)output += weeks + " weeks ";
 
-        if (days != 0)output += (days < 10 ? "0" : "") + days + " days ";
+        if (days != 0)output += (days < 10 ? (days > 0 ? "0" : "") : "") + days + " days ";
 
-        if (hours != 0)output += (hours < 10 ? "0" : "") + hours + " h ";
+        if (hours != 0)output += (hours < 10 ? (hours > 0 ? "0" : "") : "") + hours + " h ";
             
-        if (minutes != 0) output += (minutes < 10 ? "0" : "") + minutes + " min ";
+        if (minutes != 0) output += (minutes < 10 ? (minutes > 0 ? "0" : "") : "") + minutes + " min ";
 
-        output += (seconds < 10 ? "0" : "") + seconds + " sec";
+        output += (seconds < 10 ? (seconds > 0 ? "0" : "") : "") + seconds + " sec";
 
         return output;
     }
     
-    public static void playDragonSound()
+    /**
+     * Play a sound. Client only. You need to do the server <=> client yourself.
+     * @param name
+     * @param volume
+     * @param pitch
+     */
+    public static void playSound(String name, float volume, float pitch)
     {
+        if (FMLCommonHandler.instance().getSide().isServer()) return;
         Minecraft mc = Minecraft.getMinecraft();
-        if (mc.theWorld != null)
-        {
-            double d4 = mc.renderViewEntity.posX;
-            double d5 = mc.renderViewEntity.posY;
-            double d6 = mc.renderViewEntity.posZ;
-            mc.theWorld.playSound(d4, d5, d6, "mob.enderdragon.end", 5.0F, 1.0F, false);
-        }
+        float d4 = (float) mc.renderViewEntity.posX;
+        float d5 = (float) mc.renderViewEntity.posY;
+        float d6 = (float) mc.renderViewEntity.posZ;
+        mc.sndManager.playSound(name, d4, d5, d6, volume, pitch);
     }
 }
