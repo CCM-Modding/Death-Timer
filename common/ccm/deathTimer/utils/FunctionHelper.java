@@ -1,11 +1,10 @@
 package ccm.deathTimer.utils;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import ccm.nucleum_omnium.utils.lib.Arrows;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SoundManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumChatFormatting;
+import ccm.nucleum_omnium.utils.lib.Arrows;
+import cpw.mods.fml.common.FMLCommonHandler;
 
 public class FunctionHelper
 {

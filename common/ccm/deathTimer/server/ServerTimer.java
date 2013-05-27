@@ -3,7 +3,7 @@ package ccm.deathTimer.server;
 import java.util.EnumSet;
 import java.util.HashMap;
 
-import ccm.deathTimer.timerTypes.TimerData;
+import ccm.deathTimer.timerTypes.ITimerBase;
 import ccm.deathTimer.utils.lib.Archive;
 import cpw.mods.fml.common.IScheduledTickHandler;
 import cpw.mods.fml.common.TickType;
@@ -27,25 +27,25 @@ public class ServerTimer implements IScheduledTickHandler
     /*
      * Useful stuff starts here.
      */
-    public HashMap<String, TimerData> timerList = new HashMap<String, TimerData>();
+    public HashMap<String, ITimerBase> timerList = new HashMap<String, ITimerBase>();
     
-    public void addTimer(TimerData data)
+    public void addTimer(ITimerBase data)
     {
-        timerList.put(data.label, data);
-        data.sendUpdate();
+        timerList.put(data.getLabel(), data);
+        data.sendAutoUpdate();
     }
     
     @Override
     public void tickStart(EnumSet<TickType> type, Object... tickData)
     {
-        for (TimerData data : timerList.values())
+        for (ITimerBase data : timerList.values())
         {
-            data.time --;
+            data.tick();
             
-            if (data.time % data.updateInteval == 0 || data.time <= 0)
-                data.sendUpdate();
-            if (data.time <= 0)
-                timerList.remove(data.label);
+            if (data.getTime() % ITimerBase.updateInteval == 0 || data.getTime() <= 0)
+                data.sendAutoUpdate();
+            if (data.getTime() <= 0)
+                timerList.remove(data.getLabel());
         }
     }
 

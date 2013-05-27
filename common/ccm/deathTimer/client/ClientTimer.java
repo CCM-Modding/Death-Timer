@@ -4,8 +4,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 
 import net.minecraft.entity.player.EntityPlayer;
-
-import ccm.deathTimer.timerTypes.TimerData;
+import ccm.deathTimer.timerTypes.ITimerBase;
 import ccm.deathTimer.utils.FunctionHelper;
 import ccm.deathTimer.utils.lib.Archive;
 import cpw.mods.fml.common.IPlayerTracker;
@@ -40,18 +39,18 @@ public class ClientTimer implements IScheduledTickHandler,  IPlayerTracker
     /*
      * Useful stuff starts here.
      */
-    public HashMap<String, TimerData> timerList = new HashMap<String, TimerData>();
+    public HashMap<String, ITimerBase> timerList = new HashMap<String, ITimerBase>();
     
     @Override
     public void tickStart(EnumSet<TickType> type, Object... tickData)
     {
-        for (TimerData data : timerList.values())
+        for (ITimerBase data : timerList.values())
         {
-            data.time --;
-            if (data.time < 0)
+            data.tick();
+            if (data.getTime() < 0)
             {
-                if (data.useSound) FunctionHelper.playSound(data.sound, data.soundVolume, data.soundPitch);
-                timerList.remove(data.label);
+                timerList.remove(data.getLabel());
+                if(data.useSound()) FunctionHelper.playSound(data.getSoundName(), data.getSoundVolume(), data.getSoundPitch());
             }
         }
     }
@@ -79,12 +78,12 @@ public class ClientTimer implements IScheduledTickHandler,  IPlayerTracker
         return 19;
     }
 
-    public void updateTimer(TimerData data)
+    public void updateTimer(ITimerBase data)
     {
-        if (data.time == -1)
-            timerList.remove(data.label);
+        if (data.getTime() == -1)
+            timerList.remove(data.getLabel());
         else
-            timerList.put(data.label, data);
+            timerList.put(data.getLabel(), data);
     }
 
     @Override

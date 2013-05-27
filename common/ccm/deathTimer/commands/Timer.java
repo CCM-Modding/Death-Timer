@@ -1,10 +1,11 @@
 package ccm.deathTimer.commands;
 
-import ccm.deathTimer.server.ServerTimer;
-import ccm.deathTimer.timerTypes.TimerData;
-import ccm.deathTimer.utils.lib.Sound;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
+import ccm.deathTimer.server.ServerTimer;
+import ccm.deathTimer.timerTypes.BasicTimer;
+import ccm.deathTimer.timerTypes.PointTimer;
 
 public class Timer extends CommandBase
 {
@@ -26,13 +27,25 @@ public class Timer extends CommandBase
          * DEBUG
          * TODO: Make cmd structure
          */
-        TimerData data = new TimerData("DIE!", 15);
-        
-        data.useSound = true;
-        data.sound = Sound.mob_silverfish_kill.toString();
-        data.soundPitch = 0.1F;
-        data.soundVolume = 10F;
-        
-        ServerTimer.getInstance().addTimer(data);
+        {
+            BasicTimer data = new BasicTimer();
+            
+            data.label = "TimerTest";
+            data.time = 15;
+            
+            ServerTimer.getInstance().addTimer(data);
+        }
+        {
+            PointTimer data = new PointTimer();
+            
+            data.label = "DeathPoint";
+            data.time = 15;
+            EntityPlayer player = ((EntityPlayer) sender);
+            data.X = (int) player.posX;
+            data.Y = (int) player.posY;
+            data.Z = (int) player.posZ;
+            
+            ServerTimer.getInstance().addTimer(data);
+        }
     }
 }
