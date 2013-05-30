@@ -3,6 +3,7 @@ package ccm.deathTimer.server;
 import java.util.EnumSet;
 import java.util.HashMap;
 
+import ccm.deathTimer.Config;
 import ccm.deathTimer.timerTypes.ITimerBase;
 import ccm.deathTimer.utils.lib.Archive;
 import cpw.mods.fml.common.IScheduledTickHandler;
@@ -42,7 +43,7 @@ public class ServerTimer implements IScheduledTickHandler
         {
             data.tick();
             
-            if (data.getTime() % ITimerBase.updateInteval == 0 || data.getTime() <= 0)
+            if (data.getTime() % Config.updateInteval == 0 || data.getTime() <= 0)
                 data.sendAutoUpdate();
             if (data.getTime() <= 0)
                 timerList.remove(data.getLabel());

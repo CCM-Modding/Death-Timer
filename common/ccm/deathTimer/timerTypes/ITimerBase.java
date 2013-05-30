@@ -23,6 +23,4 @@ public interface ITimerBase
     public float                    getSoundPitch();
     
     public ArrayList<String>        getTimerString(EntityPlayer player);
-    
-    public int                      updateInteval = 10;
 }

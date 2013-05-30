@@ -123,6 +123,8 @@ public class DeathTimer extends PointTimer
         
         data.isLoaded = stream.readBoolean();
         
+        System.out.println("UPDATE " + data.label + ": " + data.time);
+        
         return data;
     }
     

@@ -23,6 +23,11 @@ public class Config
     public static boolean enableDeathSound = true;
     public static boolean enableDeathTimer = true;
     
+    /*
+     * Config values.
+     */
+    public static int updateInteval;
+    
     
     public static void runConfig(File file)
     {
@@ -32,8 +37,9 @@ public class Config
         
         useRightSide = config.get(clientcat, "useRightSide", useRightSide, "Use the right side of the screen to display the timers.").getBoolean(useRightSide);
         
-        enableDeathSound = config.get(clientcat, "enableDeathSound", enableDeathSound, "Play the dragon death sound when the despawn timer runs out.").getBoolean(enableDeathSound);
-        enableDeathTimer = config.get(clientcat, "enableDeathTimer", enableDeathTimer, "Add a 5 minute timer when you die.").getBoolean(enableDeathTimer);
+        config.addCustomCategoryComment(servercat, "These options are server side. The server will override the client.");
+        
+        updateInteval = config.get(servercat, "updateInterval", updateInteval, "If the servers TPS is low, the timer will run slower then 'realtime'.\nIf you have low TPS, lower the number to sync up the client faster.\nThe amount of seconds between sync packets.").getInt();
         
         config.save();
     }   
