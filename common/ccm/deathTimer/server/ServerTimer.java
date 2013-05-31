@@ -49,7 +49,9 @@ public class ServerTimer implements IScheduledTickHandler
         {
             data.tick();
             
-            if (data.getTime() % Config.updateInteval == 0 || data.getTime() <= 0)
+            if (data.getTime() <= 0)
+                data.sendAutoUpdate();
+            if (data.getTime() % Config.updateInteval == 0)
                 data.sendAutoUpdate();
             if (data.getTime() <= 0)
                 timerList.remove(data.getLabel());

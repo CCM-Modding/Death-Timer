@@ -31,7 +31,7 @@ public class Config
     /*
      * Config values.
      */
-    public static int updateInteval;
+    public static int updateInteval = 10;
     
     
     public static void runConfig(File file)
@@ -44,7 +44,9 @@ public class Config
         
         config.addCustomCategoryComment(servercat, "These options are server side. The server will override the client.");
         
-        updateInteval = config.get(servercat, "updateInterval", updateInteval, "If the servers TPS is low, the timer will run slower then 'realtime'.\nIf you have low TPS, lower the number to sync up the client faster.\nThe amount of seconds between sync packets.").getInt();
+        updateInteval = config.get(servercat, "updateInterval", updateInteval, "\nIf the servers TPS is low, the timer will run slower then 'realtime'.\nIf you have low TPS, lower the number to sync up the client faster.\nThe amount of seconds between sync packets.").getInt();
+        if (updateInteval == 0) {config.get(servercat, "updateInterval", updateInteval).set(10); updateInteval = 10;}
+        
         
         config.save();
     }   

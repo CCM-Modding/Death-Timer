@@ -4,9 +4,7 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
-import ccm.deathTimer.server.ServerTimer;
-import ccm.deathTimer.timerTypes.BasicTimer;
-import ccm.deathTimer.timerTypes.PointTimer;
+import ccm.deathTimer.api.SoftTimerAPI;
 
 /**
  * The main (and only) command.
@@ -34,30 +32,17 @@ public class Timer extends CommandBase
     @Override
     public void processCommand(ICommandSender sender, String[] args)
     {
-        boolean op = sender instanceof EntityPlayer ? MinecraftServer.getServer().getConfigurationManager().getOps().contains(sender.getCommandSenderName()) : true;
+        boolean op = sender instanceof EntityPlayer ? MinecraftServer.getServer().isDedicatedServer() ? MinecraftServer.getServer().getConfigurationManager().getOps().contains(sender.getCommandSenderName()) : true : true;
         
         /* TODO: DEBUG */
         
         if (!op) return;
-        {
-            BasicTimer data = new BasicTimer();
-            
-            data.label = "TimerTest";
-            data.time = 15;
-            
-            ServerTimer.getInstance().addTimer(data);
-        }
-        {
-            PointTimer data = new PointTimer();
-            
-            data.label = "DeathPoint";
-            data.time = 15;
-            EntityPlayer player = ((EntityPlayer) sender);
-            data.X = (int) player.posX;
-            data.Y = (int) player.posY;
-            data.Z = (int) player.posZ;
-            
-            ServerTimer.getInstance().addTimer(data);
-        }
+        
+        SoftTimerAPI.newBasicTimer("TEST", 60 * 5);
+        
+        SoftTimerAPI.newPointTimer("TEST_POINT", 60 * 5, 0, 128, 0, 0);
+        
+        
+        
     }
 }

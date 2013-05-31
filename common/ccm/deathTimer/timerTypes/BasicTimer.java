@@ -145,4 +145,34 @@ public class BasicTimer implements ITimerBase
     {
         return true;
     }
+
+    @Override
+    public void setLabel(String label)
+    {
+        this.label = label;
+    }
+
+    @Override
+    public void setTime(int time)
+    {
+        this.time = time;
+    }
+
+    @Override
+    public void setSoundName(String name)
+    {
+        this.soundName = name;
+    }
+
+    @Override
+    public void setSoundVolume(float volume)
+    {
+        this.soundVolume = volume;
+    }
+
+    @Override
+    public void setSoundPitch(float pitch)
+    {
+        this.soundPitch = pitch;
+    }
 }
