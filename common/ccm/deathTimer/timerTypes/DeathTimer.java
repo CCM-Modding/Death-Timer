@@ -17,6 +17,11 @@ import ccm.deathTimer.utils.lib.Archive;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
+/**
+ * Specific to deaths. Don't use for other stuff.
+ * @author Dries007
+ *
+ */
 public class DeathTimer extends PointTimer
 {
     public static final int PACKETID = 2;

@@ -11,6 +11,12 @@ import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
+/**
+ * Does the timing server side. Sends updates to the client when needed.
+ * Removed expired timers too.
+ * @author Dries007
+ *
+ */
 public class ServerTimer implements IScheduledTickHandler
 {
     private static ServerTimer instance;

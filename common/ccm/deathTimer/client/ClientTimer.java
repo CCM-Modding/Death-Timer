@@ -39,17 +39,17 @@ public class ClientTimer implements IScheduledTickHandler,  IPlayerTracker
     /*
      * Useful stuff starts here.
      */
-    public HashMap<String, ITimerBase> timerList = new HashMap<String, ITimerBase>();
+    public HashMap<String, ITimerBase> serverTimerList = new HashMap<String, ITimerBase>();
     
     @Override
     public void tickStart(EnumSet<TickType> type, Object... tickData)
     {
-        for (ITimerBase data : timerList.values())
+        for (ITimerBase data : serverTimerList.values())
         {
             data.tick();
             if (data.getTime() < 0)
             {
-                timerList.remove(data.getLabel());
+                serverTimerList.remove(data.getLabel());
                 if(data.useSound()) FunctionHelper.playSound(data.getSoundName(), data.getSoundVolume(), data.getSoundPitch());
             }
         }
@@ -78,12 +78,12 @@ public class ClientTimer implements IScheduledTickHandler,  IPlayerTracker
         return 19;
     }
 
-    public void updateTimer(ITimerBase data)
+    public void updateServerTimer(ITimerBase data)
     {
         if (data.getTime() == -1)
-            timerList.remove(data.getLabel());
+            serverTimerList.remove(data.getLabel());
         else
-            timerList.put(data.getLabel(), data);
+            serverTimerList.put(data.getLabel(), data);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class ClientTimer implements IScheduledTickHandler,  IPlayerTracker
     @Override
     public void onPlayerLogout(EntityPlayer player)
     {
-        timerList.clear();
+        serverTimerList.clear();
     }
 
     @Override

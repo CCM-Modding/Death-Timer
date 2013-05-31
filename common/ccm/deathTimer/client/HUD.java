@@ -32,13 +32,13 @@ public class HUD
         ArrayList<String> text = Config.useRightSide ? event.right : event.left;
         
         /* Header */
-        if (b && ClientTimer.getInstance().timerList.size() != 0) text.add(HEADER);
+        if (b && ClientTimer.getInstance().serverTimerList.size() != 0) text.add(HEADER);
         
         /* Add all the timers */
-        for (ITimerBase data : ClientTimer.getInstance().timerList.values())
+        for (ITimerBase data : ClientTimer.getInstance().serverTimerList.values())
             text.addAll(data.getTimerString(player));
         
         /* Footer */
-        if (b && ClientTimer.getInstance().timerList.size() != 0) text.add(FOOTER);
+        if (b && ClientTimer.getInstance().serverTimerList.size() != 0) text.add(FOOTER);
     }
 }

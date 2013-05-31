@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet250CustomPayload;
 
+/**
+ * Use to make a custom timer class.
+ * @author Dries007
+ *
+ */
 public interface ITimerBase
 {
     public void                     tick();

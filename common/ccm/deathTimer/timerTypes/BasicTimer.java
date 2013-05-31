@@ -15,6 +15,13 @@ import com.google.common.base.Strings;
 
 import cpw.mods.fml.common.network.PacketDispatcher;
 
+/**
+ * Extend to make it more usefull (or implement {@link ITimerBase}).
+ * 
+ * @author Dries007
+ *
+ */
+
 public class BasicTimer implements ITimerBase
 {
     public static final int PACKETID = 0;

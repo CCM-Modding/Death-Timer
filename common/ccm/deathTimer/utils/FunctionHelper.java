@@ -6,6 +6,11 @@ import net.minecraft.util.EnumChatFormatting;
 import ccm.nucleum_omnium.utils.lib.Arrows;
 import cpw.mods.fml.common.FMLCommonHandler;
 
+/**
+ * Static helper method class.
+ * @author Dries007
+ *
+ */
 public class FunctionHelper
 {
     public static String timeColor(int time)

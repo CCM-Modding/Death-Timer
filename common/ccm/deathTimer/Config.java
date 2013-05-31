@@ -4,6 +4,11 @@ import java.io.File;
 
 import net.minecraftforge.common.Configuration;
 
+/**
+ * The config file,  forgeconfig style.
+ * @author Dries007
+ *
+ */
 public class Config
 {
     static final String cat = "DeathTimer";

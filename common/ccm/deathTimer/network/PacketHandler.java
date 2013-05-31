@@ -36,13 +36,13 @@ public class PacketHandler implements IPacketHandler
             switch (ID)
             {
                 case BasicTimer.PACKETID:
-                    ClientTimer.getInstance().updateTimer(new BasicTimer().getUpdate(stream));
+                    ClientTimer.getInstance().updateServerTimer(new BasicTimer().getUpdate(stream));
                 break;
                 case PointTimer.PACKETID:
-                    ClientTimer.getInstance().updateTimer(new PointTimer().getUpdate(stream));
+                    ClientTimer.getInstance().updateServerTimer(new PointTimer().getUpdate(stream));
                 break;
                 case DeathTimer.PACKETID:
-                    ClientTimer.getInstance().updateTimer(new DeathTimer().getUpdate(stream));
+                    ClientTimer.getInstance().updateServerTimer(new DeathTimer().getUpdate(stream));
                 break;
             }
             

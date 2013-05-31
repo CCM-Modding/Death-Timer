@@ -13,6 +13,11 @@ import ccm.deathTimer.utils.FunctionHelper;
 import ccm.deathTimer.utils.lib.Archive;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
+/**
+ * Use to make a timer with objective.
+ * @author Dries007
+ *
+ */
 public class PointTimer extends BasicTimer
 {
     public static final int PACKETID = 1;

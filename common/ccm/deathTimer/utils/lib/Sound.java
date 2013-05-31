@@ -1,7 +1,10 @@
 package ccm.deathTimer.utils.lib;
 
 /**
- * Lest update 26/05/2013
+ * Last update 26/05/2013
+ * 
+ * Some sounds don't work for some reason. I can't test them all.
+ * 
  * @author Dries007
  *
  */

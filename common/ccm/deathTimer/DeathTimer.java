@@ -23,12 +23,21 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
+/**
+ * Main mod class.
+ * 
+ * Main author: Dries007
+ * Idea and concept: Claycorp
+ * 
+ * @author Dries007
+ *
+ */
 @Mod(modid = Archive.MOD_ID,
-name = Archive.MOD_NAME,
-version = Archive.MOD_VERSION,
-useMetadata = false,
-dependencies = Archive.MOD_DEPENDANCIES,
-certificateFingerprint = Archive.MOD_FIGERPRINT)
+    name = Archive.MOD_NAME,
+    version = Archive.MOD_VERSION,
+    useMetadata = false,
+    dependencies = Archive.MOD_DEPENDANCIES,
+    certificateFingerprint = Archive.MOD_FIGERPRINT)
 @NetworkMod(clientSideRequired = false,
        serverSideRequired = false,
        channels = Archive.MOD_CHANNEL,
