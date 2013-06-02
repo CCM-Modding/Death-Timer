@@ -6,6 +6,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.common.DimensionManager;
@@ -64,7 +65,7 @@ public class PointTimer extends BasicTimer
             e.printStackTrace();
         }
         
-        return PacketDispatcher.getPacket(Archive.MOD_CHANNEL, streambyte.toByteArray());
+        return PacketDispatcher.getPacket(Archive.MOD_CHANNEL_TIMERS, streambyte.toByteArray());
     }
 
     @Override
@@ -91,10 +92,14 @@ public class PointTimer extends BasicTimer
     }
 
     @Override
-    public ArrayList<String> getTimerString(EntityPlayer player)
+    public ArrayList<String> getTimerString(ICommandSender sender)
     {
-        ArrayList<String> text = super.getTimerString(player);
-        text.add((player.dimension == dim) ? (getDistance(player) + " " + FunctionHelper.getArrowTo(X, Z, player)) : (DimensionManager.getWorld(dim).getProviderName()));
+        ArrayList<String> text = super.getTimerString(sender);
+        if (sender instanceof EntityPlayer)
+        {
+            EntityPlayer player = (EntityPlayer) sender;
+            text.add((player.dimension == dim) ? (getDistance(player) + " " + FunctionHelper.getArrowTo(X, Z, player)) : (DimensionManager.getWorld(dim).getProviderName()));
+        }
         return text;
     }
     

@@ -6,6 +6,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.server.MinecraftServer;
@@ -103,7 +104,7 @@ public class DeathTimer extends PointTimer
             e.printStackTrace();
         }
         
-        return PacketDispatcher.getPacket(Archive.MOD_CHANNEL, streambyte.toByteArray());
+        return PacketDispatcher.getPacket(Archive.MOD_CHANNEL_TIMERS, streambyte.toByteArray());
     }
 
     @Override
@@ -128,22 +129,26 @@ public class DeathTimer extends PointTimer
         
         data.isLoaded = stream.readBoolean();
         
-        System.out.println("UPDATE " + data.label + ": " + data.time);
-        
         return data;
     }
     
     @Override
-    public ArrayList<String> getTimerString(EntityPlayer player)
+    public ArrayList<String> getTimerString(ICommandSender sender)
     {
-        ArrayList<String> text = super.getTimerString(player);
+        ArrayList<String> text = super.getTimerString(sender);
         text.add(isLoaded ? EnumChatFormatting.YELLOW + "Death chunk loaded!" : EnumChatFormatting.GREEN + "Death chunk unloaded!");
         return text;
     }
     
     @Override
-    public boolean isRelevantFor(EntityPlayer player)
+    public boolean isRelevantFor(ICommandSender player)
     {
         return player.getCommandSenderName().equals(username);
+    }
+    
+    @Override
+    public boolean isPersonal()
+    {
+        return true;
     }
 }

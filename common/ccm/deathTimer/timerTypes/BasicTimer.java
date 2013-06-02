@@ -6,7 +6,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.command.ICommandSender;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import ccm.deathTimer.utils.FunctionHelper;
 import ccm.deathTimer.utils.lib.Archive;
@@ -99,11 +99,11 @@ public class BasicTimer implements ITimerBase
     }
     
     @Override
-    public ArrayList<String> getTimerString(EntityPlayer player)
+    public ArrayList<String> getTimerString(ICommandSender sender)
     {
         ArrayList<String> text = new ArrayList<String>();
         
-        text.add(getLabel() + ": " + FunctionHelper.timeColor(getTime()) + "T-" + FunctionHelper.parseTime(getTime()));;
+        text.add(getLabel() + ": " + FunctionHelper.timeColor(getTime()) + "T-" + FunctionHelper.parseTime(getTime()) + " ");;
         
         return text;
     }
@@ -137,11 +137,11 @@ public class BasicTimer implements ITimerBase
             e.printStackTrace();
         }
         
-        return PacketDispatcher.getPacket(Archive.MOD_CHANNEL, streambyte.toByteArray());
+        return PacketDispatcher.getPacket(Archive.MOD_CHANNEL_TIMERS, streambyte.toByteArray());
     }
 
     @Override
-    public boolean isRelevantFor(EntityPlayer player)
+    public boolean isRelevantFor(ICommandSender player)
     {
         return true;
     }
@@ -174,5 +174,11 @@ public class BasicTimer implements ITimerBase
     public void setSoundPitch(float pitch)
     {
         this.soundPitch = pitch;
+    }
+
+    @Override
+    public boolean isPersonal()
+    {
+        return false;
     }
 }

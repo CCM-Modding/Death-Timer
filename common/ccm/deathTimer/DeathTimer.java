@@ -40,7 +40,7 @@ import cpw.mods.fml.common.network.NetworkMod;
     certificateFingerprint = Archive.MOD_FIGERPRINT)
 @NetworkMod(clientSideRequired = false,
        serverSideRequired = false,
-       channels = Archive.MOD_CHANNEL,
+       channels = {Archive.MOD_CHANNEL_TIMERS, Archive.MOD_CHANNEL_CONFIG},
        packetHandler = PacketHandler.class)
 public class DeathTimer implements IMod
 {

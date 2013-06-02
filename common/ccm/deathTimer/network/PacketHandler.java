@@ -24,34 +24,51 @@ public class PacketHandler implements IPacketHandler
     @Override
     public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player playerFake)
     {
-        if (!packet.channel.equals(Archive.MOD_CHANNEL)) return;
-        
-        ByteArrayInputStream streambyte = new ByteArrayInputStream(packet.data);
-        DataInputStream stream = new DataInputStream(streambyte);
-
-        try
+        if (packet.channel.equals(Archive.MOD_CHANNEL_TIMERS))
         {
-            int ID = stream.readInt();
+            ByteArrayInputStream streambyte = new ByteArrayInputStream(packet.data);
+            DataInputStream stream = new DataInputStream(streambyte);
 
-            switch (ID)
+            try
             {
-                case BasicTimer.PACKETID:
-                    ClientTimer.getInstance().updateServerTimer(new BasicTimer().getUpdate(stream));
-                break;
-                case PointTimer.PACKETID:
-                    ClientTimer.getInstance().updateServerTimer(new PointTimer().getUpdate(stream));
-                break;
-                case DeathTimer.PACKETID:
-                    ClientTimer.getInstance().updateServerTimer(new DeathTimer().getUpdate(stream));
-                break;
+                int ID = stream.readInt();
+
+                switch (ID)
+                {
+                    case BasicTimer.PACKETID:
+                        ClientTimer.getInstance().updateServerTimer(new BasicTimer().getUpdate(stream));
+                    break;
+                    case PointTimer.PACKETID:
+                        ClientTimer.getInstance().updateServerTimer(new PointTimer().getUpdate(stream));
+                    break;
+                    case DeathTimer.PACKETID:
+                        ClientTimer.getInstance().updateServerTimer(new DeathTimer().getUpdate(stream));
+                    break;
+                }
+                
+                streambyte.close();
+                stream.close();
             }
-            
-            streambyte.close();
-            stream.close();
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
-        catch (IOException e)
+        else if (packet.channel.equals(Archive.MOD_CHANNEL_CONFIG))
         {
-            e.printStackTrace();
+            ByteArrayInputStream streambyte = new ByteArrayInputStream(packet.data);
+            DataInputStream stream = new DataInputStream(streambyte);
+
+            try
+            {
+                                
+                streambyte.close();
+                stream.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 }
