@@ -14,6 +14,11 @@ sed -i 's/@VERSION@/'${VERSION}'/g' resources/mods/deathTimer/mcmod.info
 echo "Downloading N-O..."
 wget https://github.com/CCM-Modding/Nucleum-Omnium/archive/master.zip
 unzip master.zip
+cd Nucleum-Omnium-master
+cp -r * ..
+cd ..
+rm -r Nucleum-Omnium-master
+rm master.zip
 echo "Downloading Forge..."
 wget http://files.minecraftforge.net/minecraftforge/minecraftforge-src-latest.zip
 unzip minecraftforge-src-*.zip
@@ -25,9 +30,9 @@ cd mcp
 
 cd src
 echo "Copying ${JOB_NAME} into MCP..."
-cp -rf ${WORKSPACE}/common/* ./minecraft/
+cp -r ${WORKSPACE}/common/* ./minecraft/
 echo "Copying ${JOB_NAME}'s libs into MCP..."
-cp -rf ${WORKSPACE}/Library/* ./minecraft/
+cp -r ${WORKSPACE}/Library/* ./minecraft/
 cd ..
 
 echo "Recompiling..."
@@ -40,9 +45,9 @@ echo "Creating mod package"
 cd reobf/minecraft/
 mkdir -p resources/mods/deathTimer
 cd resources/mods/deathTimer
-cp -rf ${WORKSPACE}/resources/mods/deathTimer/* .
+cp -r ${WORKSPACE}/resources/mods/deathTimer/* .
 cd ../../..
-cp -rf ${WORKSPACE}/resources/mods/deathTimer/mcmod.info .
+cp -r ${WORKSPACE}/resources/mods/deathTimer/mcmod.info .
 
 jar cvf "${WORKSPACE}/output/${FILENAME}" ./ccm/deathtimer/* ./resources/mods/deathTimer/* mcmod.info
 
