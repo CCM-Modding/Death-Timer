@@ -98,7 +98,7 @@ public class PointTimer extends BasicTimer
         if (sender instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) sender;
-            text.add((player.dimension == dim) ? (getDistance(player) + " " + FunctionHelper.getArrowTo(X, Z, player)) : (DimensionManager.getWorld(dim).getProviderName()));
+            text.add((player.dimension == dim) ? (getDistance(player) + "m " + FunctionHelper.getArrowTo(X, Z, player)) : (DimensionManager.getWorld(dim).getProviderName()));
         }
         return text;
     }

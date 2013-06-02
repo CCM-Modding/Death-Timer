@@ -1,0 +1,17 @@
+[
+{
+  "modid": "deathTimer",
+  "name": "Death Timer",
+  "description": "You got 5 minutes!",
+  "credits": "Coded by Dries007. Ideas by CCM team.",
+  "logoFile": "/mods/deathTimer/logo.png",
+  "version": "@VERSION@",
+  "url": "https://github.com/CCM-Modding/Death-Timer/",
+  "updateUrl": "",
+  "authors": [ "Dries007" ],
+  "screenshots": [ "/mods/deathTimer/screenshots/1.png" ],
+  "dependencies": [
+     "required-after:Forge@[7.7.2.688,)"
+  ]
+}
+]

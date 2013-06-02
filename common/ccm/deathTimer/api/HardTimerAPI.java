@@ -5,7 +5,6 @@ import ccm.deathTimer.server.ServerTimer;
 import ccm.deathTimer.timerTypes.BasicTimer;
 import ccm.deathTimer.timerTypes.ITimerBase;
 import ccm.deathTimer.timerTypes.PointTimer;
-import ccm.deathTimer.utils.lib.Archive;
 
 public class HardTimerAPI
 {
@@ -15,7 +14,7 @@ public class HardTimerAPI
      */
     public static boolean isLoaded()
     {
-        return Archive.MOD_ID.equals(DeathTimer.instance.getId());
+        return DeathTimer.instance != null;
     }
     
     /**

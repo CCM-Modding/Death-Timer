@@ -54,21 +54,5 @@ public class PacketHandler implements IPacketHandler
                 e.printStackTrace();
             }
         }
-        else if (packet.channel.equals(Archive.MOD_CHANNEL_CONFIG))
-        {
-            ByteArrayInputStream streambyte = new ByteArrayInputStream(packet.data);
-            DataInputStream stream = new DataInputStream(streambyte);
-
-            try
-            {
-                                
-                streambyte.close();
-                stream.close();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
     }
 }

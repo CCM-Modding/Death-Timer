@@ -261,7 +261,7 @@ public class Timer extends CommandBase
         }
     }
     
-    @SuppressWarnings({"unchecked", "Dries007SpellingErrors"})
+    @SuppressWarnings({"unchecked"})
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args)
     {
         if (args.length == 1)
