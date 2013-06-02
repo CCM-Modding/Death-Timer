@@ -8,170 +8,171 @@ import java.util.ArrayList;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.network.packet.Packet250CustomPayload;
-import ccm.deathTimer.utils.FunctionHelper;
-import ccm.deathTimer.utils.lib.Archive;
+
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 import com.google.common.base.Strings;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
+import ccm.deathTimer.utils.FunctionHelper;
+import ccm.deathTimer.utils.lib.Archive;
 
 /**
  * Extend to make it more usefull (or implement {@link ITimerBase}).
  * 
  * @author Dries007
- *
  */
 
 public class BasicTimer implements ITimerBase
 {
+
     public static final int PACKETID = 0;
-    
-    public int      time;
-    public String   label;
-    public String   soundName;
-    public float    soundVolume;
-    public float    soundPitch;
-    
+
+    public int              time;
+
+    public String           label;
+
+    public String           soundName;
+
+    public float            soundVolume;
+
+    public float            soundPitch;
+
     @Override
     public String getLabel()
     {
-        return label;
+        return this.label;
     }
 
     @Override
     public int getTime()
     {
-        return time;
-    }    
+        return this.time;
+    }
 
     @Override
     public void tick()
     {
-        time --;
+        this.time--;
     }
 
     @Override
     public boolean useSound()
     {
-        return !Strings.isNullOrEmpty(soundName);
+        return !Strings.isNullOrEmpty(this.soundName);
     }
 
     @Override
     public String getSoundName()
     {
-        return soundName;
+        return this.soundName;
     }
 
     @Override
     public float getSoundVolume()
     {
-        return soundVolume;
+        return this.soundVolume;
     }
 
     @Override
     public float getSoundPitch()
     {
-        return soundPitch;
-    }
-    
-    @Override
-    public void sendAutoUpdate()
-    {
-        PacketDispatcher.sendPacketToAllPlayers(getPacket());
+        return this.soundPitch;
     }
 
     @Override
-    public ITimerBase getUpdate(DataInputStream stream) throws IOException
+    public void sendAutoUpdate()
     {
-        BasicTimer data = new BasicTimer();
-        
+        PacketDispatcher.sendPacketToAllPlayers(this.getPacket());
+    }
+
+    @Override
+    public ITimerBase getUpdate(final DataInputStream stream) throws IOException
+    {
+        final BasicTimer data = new BasicTimer();
+
         data.label = stream.readUTF();
         data.time = stream.readInt();
-        
-        if (stream.readBoolean())
-        {
+
+        if (stream.readBoolean()){
             data.soundName = stream.readUTF();
             data.soundVolume = stream.readFloat();
             data.soundPitch = stream.readFloat();
         }
-        
+
         return data;
     }
-    
+
     @Override
-    public ArrayList<String> getTimerString(ICommandSender sender)
+    public ArrayList<String> getTimerString(final ICommandSender sender)
     {
-        ArrayList<String> text = new ArrayList<String>();
-        
-        text.add(getLabel() + ": " + FunctionHelper.timeColor(getTime()) + "T-" + FunctionHelper.parseTime(getTime()) + " ");;
-        
+        final ArrayList<String> text = new ArrayList<String>();
+
+        text.add(this.getLabel() + ": " + FunctionHelper.timeColor(this.getTime()) + "T-" + FunctionHelper.parseTime(this.getTime()) + " ");
+        ;
+
         return text;
     }
 
     @Override
     public Packet250CustomPayload getPacket()
     {
-        ByteArrayOutputStream streambyte = new ByteArrayOutputStream();
-        DataOutputStream stream = new DataOutputStream(streambyte);
-        
-        try
-        {
+        final ByteArrayOutputStream streambyte = new ByteArrayOutputStream();
+        final DataOutputStream stream = new DataOutputStream(streambyte);
+
+        try{
             stream.writeInt(PACKETID);
-            
-            stream.writeUTF(getLabel());
-            stream.writeInt(getTime());
-            
-            stream.writeBoolean(useSound());
-            if (useSound())
-            {
-                stream.writeUTF(getSoundName());
-                stream.writeFloat(getSoundVolume());
-                stream.writeFloat(getSoundPitch());
+
+            stream.writeUTF(this.getLabel());
+            stream.writeInt(this.getTime());
+
+            stream.writeBoolean(this.useSound());
+            if (this.useSound()){
+                stream.writeUTF(this.getSoundName());
+                stream.writeFloat(this.getSoundVolume());
+                stream.writeFloat(this.getSoundPitch());
             }
-            
+
             stream.close();
             streambyte.close();
-        }
-        catch (IOException e)
-        {
+        }catch(final IOException e){
             e.printStackTrace();
         }
-        
+
         return PacketDispatcher.getPacket(Archive.MOD_CHANNEL_TIMERS, streambyte.toByteArray());
     }
 
     @Override
-    public boolean isRelevantFor(ICommandSender player)
+    public boolean isRelevantFor(final ICommandSender player)
     {
         return true;
     }
 
     @Override
-    public void setLabel(String label)
+    public void setLabel(final String label)
     {
         this.label = label;
     }
 
     @Override
-    public void setTime(int time)
+    public void setTime(final int time)
     {
         this.time = time;
     }
 
     @Override
-    public void setSoundName(String name)
+    public void setSoundName(final String name)
     {
         this.soundName = name;
     }
 
     @Override
-    public void setSoundVolume(float volume)
+    public void setSoundVolume(final float volume)
     {
         this.soundVolume = volume;
     }
 
     @Override
-    public void setSoundPitch(float pitch)
+    public void setSoundPitch(final float pitch)
     {
         this.soundPitch = pitch;
     }

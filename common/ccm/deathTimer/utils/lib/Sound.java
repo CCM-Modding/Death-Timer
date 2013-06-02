@@ -2,11 +2,9 @@ package ccm.deathTimer.utils.lib;
 
 /**
  * Last update 26/05/2013
- * 
  * Some sounds don't work for some reason. I can't test them all.
  * 
  * @author Dries007
- *
  */
 public enum Sound
 {
@@ -427,7 +425,7 @@ public enum Sound
     step_wood6,
     tile_piston_in,
     tile_piston_out;
-    
+
     @Override
     public String toString()
     {

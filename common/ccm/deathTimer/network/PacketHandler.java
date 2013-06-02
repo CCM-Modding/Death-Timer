@@ -6,51 +6,49 @@ import java.io.IOException;
 
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
+
+import cpw.mods.fml.common.network.IPacketHandler;
+import cpw.mods.fml.common.network.Player;
+
 import ccm.deathTimer.client.ClientTimer;
 import ccm.deathTimer.timerTypes.BasicTimer;
 import ccm.deathTimer.timerTypes.DeathTimer;
 import ccm.deathTimer.timerTypes.PointTimer;
 import ccm.deathTimer.utils.lib.Archive;
-import cpw.mods.fml.common.network.IPacketHandler;
-import cpw.mods.fml.common.network.Player;
 
 /**
  * Don't forget to add timer types to the list...
+ * 
  * @author Dries007
- *
  */
 public class PacketHandler implements IPacketHandler
-{   
+{
+
     @Override
-    public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player playerFake)
+    public void onPacketData(final INetworkManager manager, final Packet250CustomPayload packet, final Player playerFake)
     {
-        if (packet.channel.equals(Archive.MOD_CHANNEL_TIMERS))
-        {
-            ByteArrayInputStream streambyte = new ByteArrayInputStream(packet.data);
-            DataInputStream stream = new DataInputStream(streambyte);
+        if (packet.channel.equals(Archive.MOD_CHANNEL_TIMERS)){
+            final ByteArrayInputStream streambyte = new ByteArrayInputStream(packet.data);
+            final DataInputStream stream = new DataInputStream(streambyte);
 
-            try
-            {
-                int ID = stream.readInt();
+            try{
+                final int ID = stream.readInt();
 
-                switch (ID)
-                {
+                switch (ID) {
                     case BasicTimer.PACKETID:
                         ClientTimer.getInstance().updateServerTimer(new BasicTimer().getUpdate(stream));
-                    break;
+                        break;
                     case PointTimer.PACKETID:
                         ClientTimer.getInstance().updateServerTimer(new PointTimer().getUpdate(stream));
-                    break;
+                        break;
                     case DeathTimer.PACKETID:
                         ClientTimer.getInstance().updateServerTimer(new DeathTimer().getUpdate(stream));
-                    break;
+                        break;
                 }
-                
+
                 streambyte.close();
                 stream.close();
-            }
-            catch (IOException e)
-            {
+            }catch(final IOException e){
                 e.printStackTrace();
             }
         }

@@ -4,9 +4,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 
 import net.minecraft.entity.player.EntityPlayer;
-import ccm.deathTimer.timerTypes.ITimerBase;
-import ccm.deathTimer.utils.FunctionHelper;
-import ccm.deathTimer.utils.lib.Archive;
+
 import cpw.mods.fml.common.IPlayerTracker;
 import cpw.mods.fml.common.IScheduledTickHandler;
 import cpw.mods.fml.common.TickType;
@@ -15,50 +13,56 @@ import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+import ccm.deathTimer.timerTypes.ITimerBase;
+import ccm.deathTimer.utils.FunctionHelper;
+import ccm.deathTimer.utils.lib.Archive;
+
 /**
- * Does the timing client side. Receives updates from the server and updates the timers appropriately.
+ * Does the timing client side. Receives updates from the server and updates the timers
+ * appropriately.
+ * 
  * @author Dries007
- *
  */
 @SideOnly(Side.CLIENT)
-public class ClientTimer implements IScheduledTickHandler,  IPlayerTracker
+public class ClientTimer implements IScheduledTickHandler, IPlayerTracker
 {
+
     private static ClientTimer instance;
+
     public ClientTimer()
     {
         instance = this;
         TickRegistry.registerScheduledTickHandler(this, Side.CLIENT);
         GameRegistry.registerPlayerTracker(this);
     }
-    
+
     public static ClientTimer getInstance()
     {
         return instance;
     }
-    
+
     /*
      * Useful stuff starts here.
      */
     public HashMap<String, ITimerBase> serverTimerList = new HashMap<String, ITimerBase>();
-    
+
     @Override
-    public void tickStart(EnumSet<TickType> type, Object... tickData)
+    public void tickStart(final EnumSet<TickType> type, final Object... tickData)
     {
-        for (ITimerBase data : serverTimerList.values())
-        {
+        for (final ITimerBase data : this.serverTimerList.values()){
             data.tick();
-            if (data.getTime() < 0)
-            {
-                serverTimerList.remove(data.getLabel());
-                if(data.useSound()) FunctionHelper.playSound(data.getSoundName(), data.getSoundVolume(), data.getSoundPitch());
+            if (data.getTime() < 0){
+                this.serverTimerList.remove(data.getLabel());
+                if (data.useSound()){
+                    FunctionHelper.playSound(data.getSoundName(), data.getSoundVolume(), data.getSoundPitch());
+                }
             }
         }
     }
 
     @Override
-    public void tickEnd(EnumSet<TickType> type, Object... tickData)
-    {
-    }
+    public void tickEnd(final EnumSet<TickType> type, final Object... tickData)
+    {}
 
     @Override
     public EnumSet<TickType> ticks()
@@ -78,35 +82,36 @@ public class ClientTimer implements IScheduledTickHandler,  IPlayerTracker
         return 19;
     }
 
-    public void updateServerTimer(ITimerBase data)
+    public void updateServerTimer(final ITimerBase data)
     {
-        if (data.getTime() == -1)
-            serverTimerList.remove(data.getLabel());
-        else
-            serverTimerList.put(data.getLabel(), data);
+        if (data.getTime() == -1){
+            this.serverTimerList.remove(data.getLabel());
+        }else{
+            this.serverTimerList.put(data.getLabel(), data);
+        }
     }
 
     @Override
-    public void onPlayerLogin(EntityPlayer player)
+    public void onPlayerLogin(final EntityPlayer player)
     {
-        
+
     }
 
     @Override
-    public void onPlayerLogout(EntityPlayer player)
+    public void onPlayerLogout(final EntityPlayer player)
     {
-        serverTimerList.clear();
+        this.serverTimerList.clear();
     }
 
     @Override
-    public void onPlayerChangedDimension(EntityPlayer player)
+    public void onPlayerChangedDimension(final EntityPlayer player)
     {
-        
+
     }
 
     @Override
-    public void onPlayerRespawn(EntityPlayer player)
+    public void onPlayerRespawn(final EntityPlayer player)
     {
-        
+
     }
 }
