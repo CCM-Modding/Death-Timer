@@ -13,8 +13,7 @@ import ccm.deathTimer.timerTypes.ITimerBase;
 import ccm.deathTimer.utils.lib.Archive;
 
 /**
- * Does the timing server side. Sends updates to the client when needed.
- * Removed expired timers too.
+ * Does the timing server side. Sends updates to the client when needed. Removed expired timers too.
  * 
  * @author Dries007
  */
@@ -48,16 +47,20 @@ public class ServerTimer implements IScheduledTickHandler
     @Override
     public void tickStart(final EnumSet<TickType> type, final Object... tickData)
     {
-        for (final ITimerBase data : this.timerList.values()){
+        for (final ITimerBase data : this.timerList.values())
+        {
             data.tick();
 
-            if (data.getTime() <= 0){
+            if (data.getTime() <= 0)
+            {
                 data.sendAutoUpdate();
             }
-            if ((data.getTime() % Config.updateInteval) == 0){
+            if ((data.getTime() % Config.updateInteval) == 0)
+            {
                 data.sendAutoUpdate();
             }
-            if (data.getTime() <= 0){
+            if (data.getTime() <= 0)
+            {
                 this.timerList.remove(data.getLabel());
             }
         }

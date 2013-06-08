@@ -18,8 +18,7 @@ import ccm.deathTimer.utils.FunctionHelper;
 import ccm.deathTimer.utils.lib.Archive;
 
 /**
- * Does the timing client side. Receives updates from the server and updates the timers
- * appropriately.
+ * Does the timing client side. Receives updates from the server and updates the timers appropriately.
  * 
  * @author Dries007
  */
@@ -49,11 +48,14 @@ public class ClientTimer implements IScheduledTickHandler, IPlayerTracker
     @Override
     public void tickStart(final EnumSet<TickType> type, final Object... tickData)
     {
-        for (final ITimerBase data : this.serverTimerList.values()){
+        for (final ITimerBase data : this.serverTimerList.values())
+        {
             data.tick();
-            if (data.getTime() < 0){
+            if (data.getTime() < 0)
+            {
                 this.serverTimerList.remove(data.getLabel());
-                if (data.useSound()){
+                if (data.useSound())
+                {
                     FunctionHelper.playSound(data.getSoundName(), data.getSoundVolume(), data.getSoundPitch());
                 }
             }
@@ -84,9 +86,12 @@ public class ClientTimer implements IScheduledTickHandler, IPlayerTracker
 
     public void updateServerTimer(final ITimerBase data)
     {
-        if (data.getTime() == -1){
+        if (data.getTime() == -1)
+        {
             this.serverTimerList.remove(data.getLabel());
-        }else{
+        }
+        else
+        {
             this.serverTimerList.put(data.getLabel(), data);
         }
     }

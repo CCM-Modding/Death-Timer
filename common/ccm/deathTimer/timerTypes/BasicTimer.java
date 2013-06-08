@@ -93,7 +93,8 @@ public class BasicTimer implements ITimerBase
         data.label = stream.readUTF();
         data.time = stream.readInt();
 
-        if (stream.readBoolean()){
+        if (stream.readBoolean())
+        {
             data.soundName = stream.readUTF();
             data.soundVolume = stream.readFloat();
             data.soundPitch = stream.readFloat();
@@ -107,8 +108,7 @@ public class BasicTimer implements ITimerBase
     {
         final ArrayList<String> text = new ArrayList<String>();
 
-        text.add(this.getLabel() + ": " + FunctionHelper.timeColor(this.getTime()) + "T-" + FunctionHelper.parseTime(this.getTime()) + " ");
-        ;
+        text.add(this.getLabel() + ": " + FunctionHelper.timeColor(this.getTime()) + "T-" + FunctionHelper.parseTime(this.getTime()) + " ");;
 
         return text;
     }
@@ -119,14 +119,16 @@ public class BasicTimer implements ITimerBase
         final ByteArrayOutputStream streambyte = new ByteArrayOutputStream();
         final DataOutputStream stream = new DataOutputStream(streambyte);
 
-        try{
+        try
+        {
             stream.writeInt(PACKETID);
 
             stream.writeUTF(this.getLabel());
             stream.writeInt(this.getTime());
 
             stream.writeBoolean(this.useSound());
-            if (this.useSound()){
+            if (this.useSound())
+            {
                 stream.writeUTF(this.getSoundName());
                 stream.writeFloat(this.getSoundVolume());
                 stream.writeFloat(this.getSoundPitch());
@@ -134,7 +136,9 @@ public class BasicTimer implements ITimerBase
 
             stream.close();
             streambyte.close();
-        }catch(final IOException e){
+        }
+        catch (final IOException e)
+        {
             e.printStackTrace();
         }
 

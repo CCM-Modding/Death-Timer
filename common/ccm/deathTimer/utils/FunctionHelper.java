@@ -18,13 +18,20 @@ public class FunctionHelper
 
     public static String timeColor(final int time)
     {
-        if (time <= 30){
+        if (time <= 30)
+        {
             return EnumChatFormatting.RED.toString();
-        }else if (time <= 60){
+        }
+        else if (time <= 60)
+        {
             return EnumChatFormatting.GOLD.toString();
-        }else if (time <= 150){
+        }
+        else if (time <= 150)
+        {
             return EnumChatFormatting.YELLOW.toString();
-        }else{
+        }
+        else
+        {
             return EnumChatFormatting.GREEN.toString();
         }
     }
@@ -43,8 +50,7 @@ public class FunctionHelper
     }
 
     /**
-     * Gets a nice string with only needed elements.
-     * Max time is weeks
+     * Gets a nice string with only needed elements. Max time is weeks
      * 
      * @param timeInSec
      * @return Time in string format
@@ -61,19 +67,23 @@ public class FunctionHelper
         final int minutes = remainder / 60;
         final int seconds = remainder % 60;
 
-        if (weeks != 0){
+        if (weeks != 0)
+        {
             output += weeks + " weeks ";
         }
 
-        if (days != 0){
+        if (days != 0)
+        {
             output += (days < 10 ? (days > 0 ? "0" : "") : "") + days + " days ";
         }
 
-        if (hours != 0){
+        if (hours != 0)
+        {
             output += (hours < 10 ? (hours > 0 ? "0" : "") : "") + hours + " h ";
         }
 
-        if (minutes != 0){
+        if (minutes != 0)
+        {
             output += (minutes < 10 ? (minutes > 0 ? "0" : "") : "") + minutes + " min ";
         }
 
@@ -91,9 +101,7 @@ public class FunctionHelper
      */
     public static void playSound(final String name, final float volume, final float pitch)
     {
-        if (FMLCommonHandler.instance().getSide().isServer()){
-            return;
-        }
+        if (FMLCommonHandler.instance().getSide().isServer()) { return; }
         final Minecraft mc = Minecraft.getMinecraft();
         final float d4 = (float) mc.renderViewEntity.posX;
         final float d5 = (float) mc.renderViewEntity.posY;

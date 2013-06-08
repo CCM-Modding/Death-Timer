@@ -30,25 +30,26 @@ public class HUD
     public void render(final Text event)
     {
         final EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-        if ((player == null) || (player.worldObj == null)){
-            return;
-        }
+        if ((player == null) || (player.worldObj == null)) { return; }
 
         final boolean b = Config.useRightSide ? (event.right.size() != 0) : (event.left.size() != 0);
         final ArrayList<String> text = Config.useRightSide ? event.right : event.left;
 
         /* Header */
-        if (b && (ClientTimer.getInstance().serverTimerList.size() != 0)){
+        if (b && (ClientTimer.getInstance().serverTimerList.size() != 0))
+        {
             text.add(HEADER);
         }
 
         /* Add all the timers */
-        for (final ITimerBase data : ClientTimer.getInstance().serverTimerList.values()){
+        for (final ITimerBase data : ClientTimer.getInstance().serverTimerList.values())
+        {
             text.addAll(data.getTimerString(player));
         }
 
         /* Footer */
-        if (b && (ClientTimer.getInstance().serverTimerList.size() != 0)){
+        if (b && (ClientTimer.getInstance().serverTimerList.size() != 0))
+        {
             text.add(FOOTER);
         }
     }

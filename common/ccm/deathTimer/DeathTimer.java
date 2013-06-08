@@ -22,21 +22,12 @@ import ccm.deathTimer.utils.lib.Archive;
 import ccm.deathTimer.utils.lib.Locations;
 
 /**
- * Main mod class.
- * Main author: Dries007
- * Idea and concept: Claycorp
+ * Main mod class. Main author: Dries007 Idea and concept: Claycorp
  * 
  * @author Dries007
  */
-@Mod(modid = Archive.MOD_ID,
-     name = Archive.MOD_NAME,
-     useMetadata = true,
-     dependencies = Archive.MOD_DEPENDANCIES)
-@NetworkMod(clientSideRequired = false,
-            serverSideRequired = false,
-            channels =
-            { Archive.MOD_CHANNEL_TIMERS },
-            packetHandler = PacketHandler.class)
+@Mod(modid = Archive.MOD_ID, name = Archive.MOD_NAME, useMetadata = true, dependencies = Archive.MOD_DEPENDANCIES)
+@NetworkMod(clientSideRequired = false, serverSideRequired = false, channels = { Archive.MOD_CHANNEL_TIMERS }, packetHandler = PacketHandler.class)
 @ModstatInfo(prefix = Archive.MOD_PREFIX)
 public class DeathTimer
 {
@@ -44,8 +35,7 @@ public class DeathTimer
     @Instance(Archive.MOD_ID)
     public static DeathTimer  instance;
 
-    @SidedProxy(serverSide = Locations.SERVER_PROXY,
-                clientSide = Locations.CLIENT_PROXY)
+    @SidedProxy(serverSide = Locations.SERVER_PROXY, clientSide = Locations.CLIENT_PROXY)
     public static CommonProxy proxy;
 
     @PreInit

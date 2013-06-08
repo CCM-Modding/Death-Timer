@@ -2,8 +2,7 @@ package ccm.deathTimer.api;
 
 import java.lang.reflect.Method;
 
-@SuppressWarnings(
-{ "unchecked", "rawtypes" })
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class SoftTimerAPI
 {
 
@@ -17,12 +16,16 @@ public class SoftTimerAPI
 
     private static Class getAPIClass()
     {
-        try{
+        try
+        {
             c = Class.forName(APICLASSNAME);
             loaded = true;
             return c;
-        }catch(final Exception e){
-            if (DEBUG){
+        }
+        catch (final Exception e)
+        {
+            if (DEBUG)
+            {
                 e.printStackTrace();
             }
             loaded = false;
@@ -50,13 +53,17 @@ public class SoftTimerAPI
      */
     public static boolean newBasicTimer(final String label, final int time)
     {
-        try{
+        try
+        {
             final Method m = c.getMethod("newBasicTimer", String.class, int.class);
             m.invoke(null, label, time);
 
             return true;
-        }catch(final Exception e){
-            if (DEBUG){
+        }
+        catch (final Exception e)
+        {
+            if (DEBUG)
+            {
                 e.printStackTrace();
             }
             return false;
@@ -77,13 +84,17 @@ public class SoftTimerAPI
      */
     public static boolean newPointTimer(final String label, final int time, final int X, final int Y, final int Z, final int dim)
     {
-        try{
+        try
+        {
             final Method m = c.getMethod("newPointTimer", String.class, int.class, int.class, int.class, int.class, int.class);
             m.invoke(null, label, time, X, Y, Z, dim);
 
             return true;
-        }catch(final Exception e){
-            if (DEBUG){
+        }
+        catch (final Exception e)
+        {
+            if (DEBUG)
+            {
                 e.printStackTrace();
             }
             return false;
@@ -102,13 +113,17 @@ public class SoftTimerAPI
      */
     public static boolean setSound(final String label, final String sound, final float volume, final float pitch)
     {
-        try{
+        try
+        {
             final Method m = c.getMethod("setSound", String.class, String.class, float.class, float.class);
             m.invoke(null, label, sound, volume, pitch);
 
             return true;
-        }catch(final Exception e){
-            if (DEBUG){
+        }
+        catch (final Exception e)
+        {
+            if (DEBUG)
+            {
                 e.printStackTrace();
             }
             return false;
@@ -124,13 +139,17 @@ public class SoftTimerAPI
      */
     public static boolean stopTimer(final String label)
     {
-        try{
+        try
+        {
             final Method m = c.getMethod("stopTimer", String.class);
             m.invoke(null, label);
 
             return true;
-        }catch(final Exception e){
-            if (DEBUG){
+        }
+        catch (final Exception e)
+        {
+            if (DEBUG)
+            {
                 e.printStackTrace();
             }
             return false;

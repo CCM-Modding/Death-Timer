@@ -40,14 +40,16 @@ public class PointTimer extends BasicTimer
         final ByteArrayOutputStream streambyte = new ByteArrayOutputStream();
         final DataOutputStream stream = new DataOutputStream(streambyte);
 
-        try{
+        try
+        {
             stream.writeInt(PACKETID);
 
             stream.writeUTF(this.getLabel());
             stream.writeInt(this.getTime());
 
             stream.writeBoolean(this.useSound());
-            if (this.useSound()){
+            if (this.useSound())
+            {
                 stream.writeUTF(this.getSoundName());
                 stream.writeFloat(this.getSoundVolume());
                 stream.writeFloat(this.getSoundPitch());
@@ -60,7 +62,9 @@ public class PointTimer extends BasicTimer
 
             stream.close();
             streambyte.close();
-        }catch(final IOException e){
+        }
+        catch (final IOException e)
+        {
             e.printStackTrace();
         }
 
@@ -75,7 +79,8 @@ public class PointTimer extends BasicTimer
         data.label = stream.readUTF();
         data.time = stream.readInt();
 
-        if (stream.readBoolean()){
+        if (stream.readBoolean())
+        {
             data.soundName = stream.readUTF();
             data.soundVolume = stream.readFloat();
             data.soundPitch = stream.readFloat();
@@ -93,10 +98,10 @@ public class PointTimer extends BasicTimer
     public ArrayList<String> getTimerString(final ICommandSender sender)
     {
         final ArrayList<String> text = super.getTimerString(sender);
-        if (sender instanceof EntityPlayer){
+        if (sender instanceof EntityPlayer)
+        {
             final EntityPlayer player = (EntityPlayer) sender;
-            text.add((player.dimension == this.dim) ? (this.getDistance(player) + "m " + FunctionHelper.getArrowTo(this.X, this.Z, player))
-                                                   : (DimensionManager.getWorld(this.dim).getProviderName()));
+            text.add((player.dimension == this.dim) ? (this.getDistance(player) + "m " + FunctionHelper.getArrowTo(this.X, this.Z, player)) : (DimensionManager.getWorld(this.dim).getProviderName()));
         }
         return text;
     }

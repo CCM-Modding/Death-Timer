@@ -41,7 +41,7 @@ public class DeathTimer extends PointTimer
 
     public DeathTimer(final EntityPlayer player)
     {
-        this.label = "Item despawn - " + player.username;
+        this.label = "ItemDespawn-" + player.username;
         this.time = 60 * 5;
         this.isLoaded = true;
         this.username = player.username;
@@ -56,11 +56,13 @@ public class DeathTimer extends PointTimer
     @Override
     public void tick()
     {
-        if (this.isLoaded){
+        if (this.isLoaded)
+        {
             this.time--;
         }
 
-        if (this.time <= 0){
+        if (this.time <= 0)
+        {
             EventTracker.ChuncksToTrackMap.remove(this.chunkKey, this);
         }
     }
@@ -69,7 +71,8 @@ public class DeathTimer extends PointTimer
     public void sendAutoUpdate()
     {
         final Player p = (Player) MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(this.username);
-        if (p != null){
+        if (p != null)
+        {
             PacketDispatcher.sendPacketToPlayer(this.getPacket(), p);
         }
     }
@@ -80,14 +83,16 @@ public class DeathTimer extends PointTimer
         final ByteArrayOutputStream streambyte = new ByteArrayOutputStream();
         final DataOutputStream stream = new DataOutputStream(streambyte);
 
-        try{
+        try
+        {
             stream.writeInt(PACKETID);
 
             stream.writeUTF(this.getLabel());
             stream.writeInt(this.getTime());
 
             stream.writeBoolean(this.useSound());
-            if (this.useSound()){
+            if (this.useSound())
+            {
                 stream.writeUTF(this.getSoundName());
                 stream.writeFloat(this.getSoundVolume());
                 stream.writeFloat(this.getSoundPitch());
@@ -102,7 +107,9 @@ public class DeathTimer extends PointTimer
 
             stream.close();
             streambyte.close();
-        }catch(final IOException e){
+        }
+        catch (final IOException e)
+        {
             e.printStackTrace();
         }
 
@@ -117,7 +124,8 @@ public class DeathTimer extends PointTimer
         data.label = stream.readUTF();
         data.time = stream.readInt();
 
-        if (stream.readBoolean()){
+        if (stream.readBoolean())
+        {
             data.soundName = stream.readUTF();
             data.soundVolume = stream.readFloat();
             data.soundPitch = stream.readFloat();

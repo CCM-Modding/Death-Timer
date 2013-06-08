@@ -41,9 +41,12 @@ public class EventTracker implements IPlayerTracker
     @ForgeSubscribe
     public void handleDeath(final PlayerDropsEvent e)
     {
-        for (final long key : ChuncksToTrackMap.keySet()){
-            for (final DeathTimer dat : ChuncksToTrackMap.get(key)){
-                if (dat.username.equals(e.entityPlayer.username)){
+        for (final long key : ChuncksToTrackMap.keySet())
+        {
+            for (final DeathTimer dat : ChuncksToTrackMap.get(key))
+            {
+                if (dat.username.equals(e.entityPlayer.username))
+                {
                     ChuncksToTrackMap.remove(key, dat);
                 }
             }
@@ -55,13 +58,13 @@ public class EventTracker implements IPlayerTracker
     @ForgeSubscribe
     public void chunkUnload(final ChunkEvent.Unload e)
     {
-        if (FMLCommonHandler.instance().getEffectiveSide().isClient()){
-            return;
-        }
+        if (FMLCommonHandler.instance().getEffectiveSide().isClient()) { return; }
         final ServerConfigurationManager cm = MinecraftServer.getServer().getConfigurationManager();
-        for (final DeathTimer dat : ChuncksToTrackMap.get(ChunkCoordIntPair.chunkXZ2Int(e.getChunk().xPosition, e.getChunk().zPosition))){
+        for (final DeathTimer dat : ChuncksToTrackMap.get(ChunkCoordIntPair.chunkXZ2Int(e.getChunk().xPosition, e.getChunk().zPosition)))
+        {
             final EntityPlayerMP p = cm.getPlayerForUsername(dat.username);
-            if (p == null){
+            if (p == null)
+            {
                 continue;
             }
 
@@ -73,13 +76,13 @@ public class EventTracker implements IPlayerTracker
     @ForgeSubscribe
     public void chunkLoad(final ChunkEvent.Load e)
     {
-        if (FMLCommonHandler.instance().getEffectiveSide().isClient()){
-            return;
-        }
+        if (FMLCommonHandler.instance().getEffectiveSide().isClient()) { return; }
         final ServerConfigurationManager cm = MinecraftServer.getServer().getConfigurationManager();
-        for (final DeathTimer dat : ChuncksToTrackMap.get(ChunkCoordIntPair.chunkXZ2Int(e.getChunk().xPosition, e.getChunk().zPosition))){
+        for (final DeathTimer dat : ChuncksToTrackMap.get(ChunkCoordIntPair.chunkXZ2Int(e.getChunk().xPosition, e.getChunk().zPosition)))
+        {
             final EntityPlayerMP p = cm.getPlayerForUsername(dat.username);
-            if (p == null){
+            if (p == null)
+            {
                 continue;
             }
 
@@ -91,8 +94,10 @@ public class EventTracker implements IPlayerTracker
     @Override
     public void onPlayerLogin(final EntityPlayer player)
     {
-        for (final ITimerBase data : ServerTimer.getInstance().timerList.values()){
-            if (data.isRelevantFor(player)){
+        for (final ITimerBase data : ServerTimer.getInstance().timerList.values())
+        {
+            if (data.isRelevantFor(player))
+            {
                 PacketDispatcher.sendPacketToPlayer(data.getPacket(), (Player) player);
             }
         }

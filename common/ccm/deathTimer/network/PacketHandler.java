@@ -27,28 +27,33 @@ public class PacketHandler implements IPacketHandler
     @Override
     public void onPacketData(final INetworkManager manager, final Packet250CustomPayload packet, final Player playerFake)
     {
-        if (packet.channel.equals(Archive.MOD_CHANNEL_TIMERS)){
+        if (packet.channel.equals(Archive.MOD_CHANNEL_TIMERS))
+        {
             final ByteArrayInputStream streambyte = new ByteArrayInputStream(packet.data);
             final DataInputStream stream = new DataInputStream(streambyte);
 
-            try{
+            try
+            {
                 final int ID = stream.readInt();
 
-                switch (ID) {
-                    case BasicTimer.PACKETID:
-                        ClientTimer.getInstance().updateServerTimer(new BasicTimer().getUpdate(stream));
-                        break;
-                    case PointTimer.PACKETID:
-                        ClientTimer.getInstance().updateServerTimer(new PointTimer().getUpdate(stream));
-                        break;
-                    case DeathTimer.PACKETID:
-                        ClientTimer.getInstance().updateServerTimer(new DeathTimer().getUpdate(stream));
-                        break;
+                switch (ID)
+                {
+                case BasicTimer.PACKETID:
+                    ClientTimer.getInstance().updateServerTimer(new BasicTimer().getUpdate(stream));
+                break;
+                case PointTimer.PACKETID:
+                    ClientTimer.getInstance().updateServerTimer(new PointTimer().getUpdate(stream));
+                break;
+                case DeathTimer.PACKETID:
+                    ClientTimer.getInstance().updateServerTimer(new DeathTimer().getUpdate(stream));
+                break;
                 }
 
                 streambyte.close();
                 stream.close();
-            }catch(final IOException e){
+            }
+            catch (final IOException e)
+            {
                 e.printStackTrace();
             }
         }
