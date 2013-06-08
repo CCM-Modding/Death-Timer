@@ -27,7 +27,8 @@ import ccm.deathTimer.utils.lib.Archive;
  */
 public class DeathTimer extends PointTimer
 {
-
+    public static final String PREFIX = "ItemDespawn-";
+    
     public static final int PACKETID = 2;
 
     public boolean          isLoaded;
@@ -41,7 +42,7 @@ public class DeathTimer extends PointTimer
 
     public DeathTimer(final EntityPlayer player)
     {
-        this.label = "ItemDespawn-" + player.username;
+        this.label = PREFIX + player.username;
         this.time = 60 * 5;
         this.isLoaded = true;
         this.username = player.username;

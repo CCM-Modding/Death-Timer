@@ -10,6 +10,7 @@ import net.minecraft.util.EnumChatFormatting;
 
 import ccm.deathTimer.api.HardTimerAPI;
 import ccm.deathTimer.server.ServerTimer;
+import ccm.deathTimer.timerTypes.DeathTimer;
 import ccm.deathTimer.timerTypes.ITimerBase;
 import ccm.deathTimer.timerTypes.PointTimer;
 import ccm.nucleum_omnium.helper.JavaHelper;
@@ -56,6 +57,16 @@ public class Timer extends CommandBase
     {
         final boolean op = sender instanceof EntityPlayer ? MinecraftServer.getServer().isDedicatedServer() ? MinecraftServer.getServer().getConfigurationManager().getOps().contains(sender.getCommandSenderName()) : true : true;
 
+        if (args.length == 1 && args[0].equalsIgnoreCase("help"))
+        {
+            sender.sendChatToPlayer(EnumChatFormatting.GREEN + "Useage: /" + this.getCommandName() + " " + (op ? OpArgs : NonOpArgs));
+            if (!op)
+            {
+                sender.sendChatToPlayer(EnumChatFormatting.GREEN + "Note that you can only change your own timers!");
+            }
+            return;
+        }
+        
         if ((args.length == 0) || args[0].equalsIgnoreCase("timers") || args[0].equalsIgnoreCase("list"))
         {
             sender.sendChatToPlayer("--- Timers ---");
@@ -104,7 +115,10 @@ public class Timer extends CommandBase
     {
         if (args.length < 1)
         {
-            sender.sendChatToPlayer(EnumChatFormatting.RED + "Syntax error. Use: /" + this.getCommandName() + " " + StopSyntax);
+            if (ServerTimer.getInstance().timerList.containsKey(DeathTimer.PACKETID + sender.getCommandSenderName()))
+                HardTimerAPI.stopTimer(DeathTimer.PACKETID + sender.getCommandSenderName());
+            else
+                sender.sendChatToPlayer(EnumChatFormatting.RED + "Syntax error. Use: /" + this.getCommandName() + " " + StopSyntax);
         }
         else if (ServerTimer.getInstance().timerList.containsKey(args[1]))
         {
@@ -319,7 +333,7 @@ public class Timer extends CommandBase
     @SuppressWarnings({ "unchecked" })
     public List<String> addTabCompletionOptions(final ICommandSender sender, final String[] args)
     {
-        if (args.length == 1) { return getListOfStringsMatchingLastWord(args, "list", "add", "stop", "sound", "point"); }
+        if (args.length == 1) { return getListOfStringsMatchingLastWord(args, "help", "list", "add", "stop", "sound", "point"); }
         if ((args.length == 2) && (args[0].equalsIgnoreCase("stop") || args[0].equalsIgnoreCase("sound") || args[0].equalsIgnoreCase("stop")))
         {
             return getListOfStringsFromIterableMatchingLastWord(args, ServerTimer.getInstance().timerList.keySet());
