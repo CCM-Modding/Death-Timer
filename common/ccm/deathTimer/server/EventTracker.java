@@ -51,8 +51,12 @@ public class EventTracker implements IPlayerTracker
                 }
             }
         }
-        final DeathTimer dat = new DeathTimer(e.entityPlayer);
-        ChuncksToTrackMap.put(dat.chunkKey, dat);
+        
+        if (!e.entityPlayer.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory"))
+        {
+            final DeathTimer dat = new DeathTimer(e.entityPlayer);
+            ChuncksToTrackMap.put(dat.chunkKey, dat);    
+        }
     }
 
     @ForgeSubscribe
