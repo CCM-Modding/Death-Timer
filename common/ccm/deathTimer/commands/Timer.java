@@ -38,12 +38,6 @@ public class Timer extends CommandBase
     public final static String NonOpArgs   = "[" + ListSyntax + "|" + StopSyntax + "|" + SoundSyntax + "]";
 
     @Override
-    public int getRequiredPermissionLevel()
-    {
-        return 0;
-    }
-
-    @Override
     public String getCommandName()
     {
         return "timer";
@@ -333,14 +327,17 @@ public class Timer extends CommandBase
     @SuppressWarnings({ "unchecked" })
     public List<String> addTabCompletionOptions(final ICommandSender sender, final String[] args)
     {
-        if (args.length == 1) { return getListOfStringsMatchingLastWord(args, "help", "list", "add", "stop", "sound", "point"); }
-        if ((args.length == 2) && (args[0].equalsIgnoreCase("stop") || args[0].equalsIgnoreCase("sound") || args[0].equalsIgnoreCase("stop")))
-        {
+        if (args.length == 1)
+            return getListOfStringsMatchingLastWord(args, "help", "list", "add", "stop", "sound", "point");
+        else if ((args.length == 2) && (args[0].equalsIgnoreCase("stop") || args[0].equalsIgnoreCase("sound") || args[0].equalsIgnoreCase("stop")))
             return getListOfStringsFromIterableMatchingLastWord(args, ServerTimer.getInstance().timerList.keySet());
-        }
         else
-        {
             return null;
-        }
     }
+
+    public boolean canCommandSenderUseCommand(ICommandSender par1ICommandSender)
+    {
+        return true;
+    }
+
 }
