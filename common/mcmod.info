@@ -1,0 +1,17 @@
+[
+{
+  "modid": "death_timer",
+  "name": "Death Timer",
+  "description": "Tells you when your 5 minutes are up!",
+  "credits": "@THANKS@",
+  "logoFile": "/mods/death_timer/textures/logo.png",
+  "version": "@VERSION@ (@BUILD@)",
+  "url": "https://github.com/CCM-Modding/Death-Timer",
+  "updateUrl": "https://github.com/CCM-Modding/Death-Timer/tree/master/Releases",
+  "authors": [ "claycorp", "dries007" ],
+  "screenshots": [ "/mods/death_timer/textures/screenshots/screenshot.png" ],
+  "dependencies": [
+     "required-after:Forge@[7.7.2.682,)"
+  ]
+}
+]
