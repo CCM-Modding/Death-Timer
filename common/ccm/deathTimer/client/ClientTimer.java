@@ -1,10 +1,12 @@
 package ccm.deathTimer.client;
 
 import java.util.EnumSet;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.entity.player.EntityPlayer;
-
+import ccm.deathTimer.timerTypes.ITimerBase;
+import ccm.deathTimer.utils.FunctionHelper;
+import ccm.deathTimer.utils.lib.Archive;
 import cpw.mods.fml.common.IPlayerTracker;
 import cpw.mods.fml.common.IScheduledTickHandler;
 import cpw.mods.fml.common.TickType;
@@ -12,10 +14,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
-import ccm.deathTimer.timerTypes.ITimerBase;
-import ccm.deathTimer.utils.FunctionHelper;
-import ccm.deathTimer.utils.lib.Archive;
 
 /**
  * Does the timing client side. Receives updates from the server and updates the timers appropriately.
@@ -25,7 +23,6 @@ import ccm.deathTimer.utils.lib.Archive;
 @SideOnly(Side.CLIENT)
 public class ClientTimer implements IScheduledTickHandler, IPlayerTracker
 {
-
     private static ClientTimer instance;
 
     public ClientTimer()
@@ -43,7 +40,7 @@ public class ClientTimer implements IScheduledTickHandler, IPlayerTracker
     /*
      * Useful stuff starts here.
      */
-    public HashMap<String, ITimerBase> serverTimerList = new HashMap<String, ITimerBase>();
+    public ConcurrentHashMap<String, ITimerBase> serverTimerList = new ConcurrentHashMap<String, ITimerBase>();
 
     @Override
     public void tickStart(final EnumSet<TickType> type, final Object... tickData)
