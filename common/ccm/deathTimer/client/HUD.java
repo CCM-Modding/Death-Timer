@@ -6,12 +6,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.Text;
 import net.minecraftforge.event.ForgeSubscribe;
-
+import ccm.deathTimer.Config;
+import ccm.deathTimer.timerTypes.IStopwatchBase;
+import ccm.deathTimer.timerTypes.ITimerBase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
-import ccm.deathTimer.Config;
-import ccm.deathTimer.timerTypes.ITimerBase;
 
 /**
  * The timer HUD renderer class
@@ -21,36 +20,36 @@ import ccm.deathTimer.timerTypes.ITimerBase;
 @SideOnly(Side.CLIENT)
 public class HUD
 {
-
-    public static final String HEADER = "--- Timers ---";
-
-    public static final String FOOTER = "-------------";
-
+    public static final String THEADER = "---  Timers  ---";
+    public static final String SHEADER = "--- Stopwatches ---";
+    
     @ForgeSubscribe
     public void render(final Text event)
     {
         final EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-        if ((player == null) || (player.worldObj == null)) { return; }
-
-        final boolean b = Config.useRightSide ? (event.right.size() != 0) : (event.left.size() != 0);
+        if (player == null || player.worldObj == null) return;
+        
+        this.doTimers(event, player);
+        this.doStopwathes(event, player);
+    }
+    
+    private void doTimers(final Text event, final EntityPlayer player)
+    {
         final ArrayList<String> text = Config.useRightSide ? event.right : event.left;
-
-        /* Header */
-        if (b && (ClientTimer.getInstance().serverTimerList.size() != 0))
-        {
-            text.add(HEADER);
-        }
-
+        
+        if (!ClientTimer.getInstance().serverTimerList.isEmpty()) text.add(THEADER);
         /* Add all the timers */
         for (final ITimerBase data : ClientTimer.getInstance().serverTimerList.values())
-        {
             text.addAll(data.getTimerString(player));
-        }
-
-        /* Footer */
-        if (b && (ClientTimer.getInstance().serverTimerList.size() != 0))
-        {
-            text.add(FOOTER);
-        }
+    }
+    
+    private void doStopwathes(final Text event, final EntityPlayer player)
+    {
+        final ArrayList<String> text = Config.useRightSide ? event.right : event.left;
+        
+        if (!ClientTimer.getInstance().serverStopwatchList.isEmpty()) text.add(SHEADER);
+        /* Add all the timers */
+        for (final IStopwatchBase data : ClientTimer.getInstance().serverStopwatchList.values())
+            text.addAll(data.getTimerString(player));
     }
 }

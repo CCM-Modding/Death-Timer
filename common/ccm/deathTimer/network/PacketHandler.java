@@ -6,15 +6,14 @@ import java.io.IOException;
 
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
-
-import cpw.mods.fml.common.network.IPacketHandler;
-import cpw.mods.fml.common.network.Player;
-
 import ccm.deathTimer.client.ClientTimer;
+import ccm.deathTimer.timerTypes.BasicStopwatch;
 import ccm.deathTimer.timerTypes.BasicTimer;
 import ccm.deathTimer.timerTypes.DeathTimer;
 import ccm.deathTimer.timerTypes.PointTimer;
 import ccm.deathTimer.utils.lib.Archive;
+import cpw.mods.fml.common.network.IPacketHandler;
+import cpw.mods.fml.common.network.Player;
 
 /**
  * Don't forget to add timer types to the list...
@@ -23,7 +22,7 @@ import ccm.deathTimer.utils.lib.Archive;
  */
 public class PacketHandler implements IPacketHandler
 {
-
+    
     @Override
     public void onPacketData(final INetworkManager manager, final Packet250CustomPayload packet, final Player playerFake)
     {
@@ -31,24 +30,34 @@ public class PacketHandler implements IPacketHandler
         {
             final ByteArrayInputStream streambyte = new ByteArrayInputStream(packet.data);
             final DataInputStream stream = new DataInputStream(streambyte);
-
+            
             try
             {
                 final int ID = stream.readInt();
-
+                
                 switch (ID)
                 {
-                case BasicTimer.PACKETID:
-                    ClientTimer.getInstance().updateServerTimer(new BasicTimer().getUpdate(stream));
-                break;
-                case PointTimer.PACKETID:
-                    ClientTimer.getInstance().updateServerTimer(new PointTimer().getUpdate(stream));
-                break;
-                case DeathTimer.PACKETID:
-                    ClientTimer.getInstance().updateServerTimer(new DeathTimer().getUpdate(stream));
-                break;
+                    /*
+                     * Timers
+                     */
+                    case BasicTimer.PACKETID:
+                        ClientTimer.getInstance().updateServerTimer(new BasicTimer().getUpdate(stream));
+                        break;
+                    case PointTimer.PACKETID:
+                        ClientTimer.getInstance().updateServerTimer(new PointTimer().getUpdate(stream));
+                        break;
+                    case DeathTimer.PACKETID:
+                        ClientTimer.getInstance().updateServerTimer(new DeathTimer().getUpdate(stream));
+                        break;
+                        
+                    /*
+                     * Stopwatches
+                     */
+                    case BasicStopwatch.PACKETID:
+                        ClientTimer.getInstance().updateServerStopwatch(new BasicStopwatch().getUpdate(stream));
+                        break;
                 }
-
+                
                 streambyte.close();
                 stream.close();
             }

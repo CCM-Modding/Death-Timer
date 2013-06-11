@@ -5,34 +5,31 @@ import java.lang.reflect.Method;
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class SoftTimerAPI
 {
-
+    
     public static final String   APICLASSNAME = "ccm.deathTimer.api.HardTimerAPI";
-
-    private static Class         c            = getAPIClass();
-
+    
+    private static Class         c            = SoftTimerAPI.getAPIClass();
+    
     private static boolean       loaded;
-
+    
     private static final boolean DEBUG        = true;
-
+    
     private static Class getAPIClass()
     {
         try
         {
-            c = Class.forName(APICLASSNAME);
-            loaded = true;
-            return c;
+            SoftTimerAPI.c = Class.forName(SoftTimerAPI.APICLASSNAME);
+            SoftTimerAPI.loaded = true;
+            return SoftTimerAPI.c;
         }
         catch (final Exception e)
         {
-            if (DEBUG)
-            {
-                e.printStackTrace();
-            }
-            loaded = false;
+            if (SoftTimerAPI.DEBUG) e.printStackTrace();
+            SoftTimerAPI.loaded = false;
         }
         return null;
     }
-
+    
     /**
      * If false, the class is not loaded and you can't use the timer functions.
      * 
@@ -40,9 +37,9 @@ public class SoftTimerAPI
      */
     public static boolean isLoaded()
     {
-        return loaded;
+        return SoftTimerAPI.loaded;
     }
-
+    
     /**
      * Add a timer.
      * 
@@ -55,21 +52,18 @@ public class SoftTimerAPI
     {
         try
         {
-            final Method m = c.getMethod("newBasicTimer", String.class, int.class);
+            final Method m = SoftTimerAPI.c.getMethod("newBasicTimer", String.class, int.class);
             m.invoke(null, label, time);
-
+            
             return true;
         }
         catch (final Exception e)
         {
-            if (DEBUG)
-            {
-                e.printStackTrace();
-            }
+            if (SoftTimerAPI.DEBUG) e.printStackTrace();
             return false;
         }
     }
-
+    
     /**
      * Add a timer with arrow, distance and point.
      * 
@@ -86,21 +80,18 @@ public class SoftTimerAPI
     {
         try
         {
-            final Method m = c.getMethod("newPointTimer", String.class, int.class, int.class, int.class, int.class, int.class);
+            final Method m = SoftTimerAPI.c.getMethod("newPointTimer", String.class, int.class, int.class, int.class, int.class, int.class);
             m.invoke(null, label, time, X, Y, Z, dim);
-
+            
             return true;
         }
         catch (final Exception e)
         {
-            if (DEBUG)
-            {
-                e.printStackTrace();
-            }
+            if (SoftTimerAPI.DEBUG) e.printStackTrace();
             return false;
         }
     }
-
+    
     /**
      * Set the sound settings for a timer.
      * 
@@ -115,21 +106,18 @@ public class SoftTimerAPI
     {
         try
         {
-            final Method m = c.getMethod("setSound", String.class, String.class, float.class, float.class);
+            final Method m = SoftTimerAPI.c.getMethod("setSound", String.class, String.class, float.class, float.class);
             m.invoke(null, label, sound, volume, pitch);
-
+            
             return true;
         }
         catch (final Exception e)
         {
-            if (DEBUG)
-            {
-                e.printStackTrace();
-            }
+            if (SoftTimerAPI.DEBUG) e.printStackTrace();
             return false;
         }
     }
-
+    
     /**
      * Call to stop the timer.
      * 
@@ -141,17 +129,14 @@ public class SoftTimerAPI
     {
         try
         {
-            final Method m = c.getMethod("stopTimer", String.class);
+            final Method m = SoftTimerAPI.c.getMethod("stopTimer", String.class);
             m.invoke(null, label);
-
+            
             return true;
         }
         catch (final Exception e)
         {
-            if (DEBUG)
-            {
-                e.printStackTrace();
-            }
+            if (SoftTimerAPI.DEBUG) e.printStackTrace();
             return false;
         }
     }

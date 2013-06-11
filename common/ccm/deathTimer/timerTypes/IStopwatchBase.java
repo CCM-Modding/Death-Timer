@@ -7,12 +7,7 @@ import java.util.ArrayList;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.network.packet.Packet250CustomPayload;
 
-/**
- * Use to make a custom timer class.
- * 
- * @author Dries007
- */
-public interface ITimerBase
+public interface IStopwatchBase
 {
     public void tick();
     
@@ -24,7 +19,7 @@ public interface ITimerBase
     
     public boolean isPersonal();
     
-    public ITimerBase getUpdate(DataInputStream stream) throws IOException;
+    public IStopwatchBase getUpdate(DataInputStream stream) throws IOException;
     
     public String getLabel();
     
@@ -34,19 +29,10 @@ public interface ITimerBase
     
     public void setTime(int time);
     
-    public boolean useSound();
-    
-    public String getSoundName();
-    
-    public float getSoundVolume();
-    
-    public float getSoundPitch();
-    
-    public void setSoundName(String name);
-    
-    public void setSoundVolume(float volume);
-    
-    public void setSoundPitch(float pitch);
-    
     public ArrayList<String> getTimerString(ICommandSender player);
+    
+    public boolean isPaused();
+    
+    public boolean setPaused(boolean paused);
+    
 }
