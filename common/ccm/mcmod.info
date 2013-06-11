@@ -7,11 +7,11 @@
   "logoFile": "/mods/deathTimer/logo.png",
   "version": "@VERSION@",
   "url": "https://github.com/CCM-Modding/Death-Timer/",
-  "updateUrl": "",
+  "updateUrl": "http://driesgames.game-server.cc:8080/view/CCM/job/DeathTimer/",
   "authors": [ "Dries007" ],
   "screenshots": [ "/mods/deathTimer/screenshots/1.png" ],
   "dependencies": [
-     "required-after:Forge@[7.7.2.688,)"
+     "required-after:nucleum_omnium"
   ]
 }
 ]
