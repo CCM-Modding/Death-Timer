@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import net.minecraft.command.ICommandSender;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
 
 /**
@@ -49,4 +50,8 @@ public interface ITimerBase
     public void setSoundPitch(float pitch);
     
     public ArrayList<String> getTimerString(ICommandSender player);
+    
+    public NBTTagCompound toNBT();
+    
+    public ITimerBase fromNBT(NBTTagCompound tag);
 }

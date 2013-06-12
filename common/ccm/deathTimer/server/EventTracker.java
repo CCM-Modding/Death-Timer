@@ -10,6 +10,7 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import ccm.deathTimer.timerTypes.DeathTimer;
+import ccm.deathTimer.timerTypes.IStopwatchBase;
 import ccm.deathTimer.timerTypes.ITimerBase;
 
 import com.google.common.collect.HashMultimap;
@@ -85,6 +86,9 @@ public class EventTracker implements IPlayerTracker
     public void onPlayerLogin(final EntityPlayer player)
     {
         for (final ITimerBase data : ServerTimer.getInstance().timerList.values())
+            if (data.isRelevantFor(player)) PacketDispatcher.sendPacketToPlayer(data.getPacket(), (Player) player);
+        
+        for (final IStopwatchBase data : ServerTimer.getInstance().stopwatchList.values())
             if (data.isRelevantFor(player)) PacketDispatcher.sendPacketToPlayer(data.getPacket(), (Player) player);
     }
     

@@ -20,13 +20,13 @@ public class Stopwatch extends CommandBase
 {
     public final static String ListSyntax = "list";
     
-    public final static String AddSyntax  = "add <name>";
+    public final static String AddSyntax  = "add <name> [personal:default=true|false]";
     
     public final static String StopSyntax = "stop <name>";
     
     public final static String PauseSyntax = "pause <name>";
     
-    public final static String OpArgs     = "[" + Stopwatch.ListSyntax + "|" + Stopwatch.AddSyntax + "|" + Stopwatch.StopSyntax + "] [personal:default=true|false]";
+    public final static String OpArgs     = "[" + Stopwatch.ListSyntax + "|" + Stopwatch.AddSyntax + "|" + Stopwatch.StopSyntax + "]";
     
     public final static String NonOpArgs  = "[" + Stopwatch.ListSyntax + "|" + Stopwatch.StopSyntax + "|" + Stopwatch.StopSyntax + "|" + Stopwatch.PauseSyntax + "]";
     
@@ -102,6 +102,8 @@ public class Stopwatch extends CommandBase
             sender.sendChatToPlayer(EnumChatFormatting.RED + "Syntax error. Use: /" + this.getCommandName() + " " + AddSyntax);
         else if (ServerTimer.getInstance().stopwatchList.containsKey(args[1]))
             sender.sendChatToPlayer(EnumChatFormatting.RED + "This stopwatch already exists.");
+        else if (args.length >= 3 && Boolean.parseBoolean(args[2]))
+            HardStopwatchAPI.newStopwatch(args[1], sender.getCommandSenderName());
         else
             HardStopwatchAPI.newStopwatch(args[1]);
     }
@@ -139,6 +141,8 @@ public class Stopwatch extends CommandBase
             return CommandBase.getListOfStringsMatchingLastWord(args, "help", "list", "add", "stop", "pause");
         else if (args.length == 2 && (args[0].equalsIgnoreCase("stop") || args[0].equalsIgnoreCase("pause")))
             return CommandBase.getListOfStringsFromIterableMatchingLastWord(args, ServerTimer.getInstance().stopwatchList.keySet());
+        else if (args.length == 3 && args[0].equalsIgnoreCase("add"))
+            return CommandBase.getListOfStringsMatchingLastWord(args, "true", "false");
         else
             return null;
     }

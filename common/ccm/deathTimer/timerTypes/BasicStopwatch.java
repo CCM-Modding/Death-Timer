@@ -6,7 +6,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.google.common.base.Strings;
+
 import net.minecraft.command.ICommandSender;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.server.MinecraftServer;
 import ccm.deathTimer.utils.FunctionHelper;
@@ -127,7 +130,7 @@ public class BasicStopwatch implements IStopwatchBase
     {
         final ArrayList<String> text = new ArrayList<String>();
         
-        text.add(this.getLabel() + ": " + FunctionHelper.parseTime(this.getTime()) + " ");
+        text.add(this.getLabel().replaceAll("&", "\u00a7") + ": " + FunctionHelper.parseTime(this.getTime()) + " ");
         
         return text;
     }
@@ -142,5 +145,36 @@ public class BasicStopwatch implements IStopwatchBase
     public boolean setPaused(final boolean paused)
     {
         return this.paused = paused;
+    }
+    
+    @Override
+    public NBTTagCompound toNBT()
+    {
+        NBTTagCompound tag = new NBTTagCompound(label);
+        tag.setString("class", this.getClass().getName());
+        
+        tag.setInteger("time", time);
+        tag.setString("label", label);
+        tag.setBoolean("personal", personal);
+        if (!Strings.isNullOrEmpty(username))
+            tag.setString("username", username);
+        tag.setBoolean("paused", paused);
+        
+        return tag;
+    }
+
+    @Override
+    public IStopwatchBase fromNBT(NBTTagCompound tag)
+    {
+        BasicStopwatch out = new BasicStopwatch();
+        
+        out.time = tag.getInteger("time");
+        out.label = tag.getString("label");
+        out.personal = tag.getBoolean("personal");
+        if (tag.hasKey("username"))
+            out.username = tag.getString("username");
+        out.paused = tag.getBoolean("paused");
+        
+        return out;
     }
 }

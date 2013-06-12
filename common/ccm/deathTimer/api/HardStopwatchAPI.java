@@ -34,6 +34,22 @@ public class HardStopwatchAPI
     }
     
     /**
+     * Add a personal stopwatch.
+     * @param label
+     *              UNIQUE KEY
+     * @param username
+     */
+    public static void newStopwatch(final String label, final String username)
+    {
+        final BasicStopwatch data = new BasicStopwatch();
+        data.label = label;
+        data.personal = true;
+        data.username = username;
+        
+        ServerTimer.getInstance().addStopwatch(data);
+    }
+    
+    /**
      * Call to stop the stopwatch.
      * 
      * @param label

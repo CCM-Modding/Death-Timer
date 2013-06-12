@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import net.minecraft.command.ICommandSender;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import ccm.deathTimer.utils.FunctionHelper;
 import ccm.deathTimer.utils.lib.Archive;
@@ -106,7 +107,7 @@ public class BasicTimer implements ITimerBase
     {
         final ArrayList<String> text = new ArrayList<String>();
         
-        text.add(this.getLabel() + ": " + FunctionHelper.timeColor(this.getTime()) + "T-" + FunctionHelper.parseTime(this.getTime()) + " ");
+        text.add(this.getLabel().replaceAll("&", "\u00a7") + ": " + FunctionHelper.timeColor(this.getTime()) + "T-" + FunctionHelper.parseTime(this.getTime()) + " ");
         
         return text;
     }
@@ -183,5 +184,40 @@ public class BasicTimer implements ITimerBase
     public boolean isPersonal()
     {
         return false;
+    }
+
+    @Override
+    public NBTTagCompound toNBT()
+    {
+        NBTTagCompound tag = new NBTTagCompound(label);
+        tag.setString("class", this.getClass().getName());
+        
+        tag.setInteger("time", time);
+        tag.setString("label", label);
+        if (useSound())
+        {
+            tag.setString("soundName", soundName);
+            tag.setFloat("soundVolume", soundVolume);
+            tag.setFloat("soundPitch", soundPitch);    
+        }
+                
+        return tag;
+    }
+
+    @Override
+    public ITimerBase fromNBT(NBTTagCompound tag)
+    {
+        BasicTimer out = new BasicTimer();
+        
+        out.time = tag.getInteger("time");
+        out.label = tag.getString("label");
+        if (tag.hasKey("soundName"))
+        {
+            out.soundName = tag.getString("soundName");
+            out.soundVolume = tag.getFloat("soundVolume");
+            out.soundPitch = tag.getFloat("soundPitch");    
+        }
+        
+        return out;
     }
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import net.minecraft.command.ICommandSender;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
 
 public interface IStopwatchBase
@@ -35,4 +36,7 @@ public interface IStopwatchBase
     
     public boolean setPaused(boolean paused);
     
+    public NBTTagCompound toNBT();
+    
+    public IStopwatchBase fromNBT(NBTTagCompound tag);
 }

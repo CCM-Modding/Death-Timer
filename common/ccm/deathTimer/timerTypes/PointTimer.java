@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.common.DimensionManager;
 import ccm.deathTimer.utils.FunctionHelper;
@@ -111,5 +112,32 @@ public class PointTimer extends BasicTimer
         final double z = player.posZ - this.Z;
         
         return (int) Math.sqrt(x * x + y * y + z * z);
+    }
+    
+    @Override
+    public NBTTagCompound toNBT()
+    {
+        NBTTagCompound tag = super.toNBT();
+        tag.setString("class", this.getClass().getName());
+        
+        tag.setInteger("X", X);
+        tag.setInteger("Y", Y);
+        tag.setInteger("Z", Z);
+        tag.setInteger("dim", dim);
+        
+        return tag;
+    }
+
+    @Override
+    public ITimerBase fromNBT(NBTTagCompound tag)
+    {
+        PointTimer out = (PointTimer) super.fromNBT(tag);
+        
+        out.X = tag.getInteger("X");
+        out.Z = tag.getInteger("Y");
+        out.Y = tag.getInteger("Z");
+        out.dim = tag.getInteger("dim");
+        
+        return out;
     }
 }

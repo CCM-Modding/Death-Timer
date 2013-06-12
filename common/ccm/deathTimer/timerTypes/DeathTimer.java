@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumChatFormatting;
@@ -149,5 +150,30 @@ public class DeathTimer extends PointTimer
     public boolean isPersonal()
     {
         return true;
+    }
+    
+    @Override
+    public NBTTagCompound toNBT()
+    {
+        NBTTagCompound tag = super.toNBT();
+        tag.setString("class", this.getClass().getName());
+        
+        tag.setBoolean("isLoaded", isLoaded);
+        tag.setString("username", username);
+        tag.setLong("chunkKey", chunkKey);
+        
+        return tag;
+    }
+
+    @Override
+    public ITimerBase fromNBT(NBTTagCompound tag)
+    {
+        DeathTimer out = (DeathTimer) super.fromNBT(tag);
+        
+        out.isLoaded = tag.getBoolean("isLoaded");
+        out.username = tag.getString("username");
+        out.chunkKey = tag.getLong("chunkKey");
+        
+        return out;
     }
 }

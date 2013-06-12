@@ -48,12 +48,34 @@ public class SoftStopwatchAPI
      * @param time
      * @return
      */
-    public static boolean newBasicTimer(final String label)
+    public static boolean newStopwatch(final String label)
     {
         try
         {
             final Method m = SoftStopwatchAPI.c.getMethod("newStopwatch", String.class);
             m.invoke(null, label);
+            
+            return true;
+        }
+        catch (final Exception e)
+        {
+            if (SoftStopwatchAPI.DEBUG) e.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Add a personal stopwatch.
+     * @param label
+     *              UNIQUE KEY
+     * @param username
+     */
+    public static boolean newStopwatch(final String label, final String username)
+    {
+        try
+        {
+            final Method m = SoftStopwatchAPI.c.getMethod("newStopwatch", String.class, String.class);
+            m.invoke(null, label, username);
             
             return true;
         }
@@ -71,7 +93,7 @@ public class SoftStopwatchAPI
      *            UNIQUE KEY
      * @return
      */
-    public static boolean stopTimer(final String label)
+    public static boolean stopStopwatch(final String label)
     {
         try
         {
