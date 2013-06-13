@@ -5,7 +5,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-
 import ccm.deathTimer.Config;
 import ccm.deathTimer.timerTypes.IStopwatchBase;
 import ccm.deathTimer.timerTypes.ITimerBase;
@@ -98,59 +97,55 @@ public class ServerTimer implements IScheduledTickHandler
     {
         return 19;
     }
-
+    
     public void load()
     {
-        NBTTagCompound data = DataHelper.readData(Archive.MOD_ID, "timers");
+        final NBTTagCompound data = DataHelper.readData(Archive.MOD_ID, "timers");
         
-        final NBTTagList timers = data.getTagList("timers");        
+        final NBTTagList timers = data.getTagList("timers");
         for (int i = 0; i < timers.tagCount(); i++)
-        {
             try
             {
                 final NBTTagCompound timerTag = (NBTTagCompound) timers.tagAt(i);
-                Class<?> c = Class.forName(timerTag.getString("class"));
-                ITimerBase timer = (ITimerBase) c.newInstance();
+                final Class<?> c = Class.forName(timerTag.getString("class"));
+                final ITimerBase timer = (ITimerBase) c.newInstance();
                 timer.fromNBT(timerTag);
-                addTimer(timer);
+                this.addTimer(timer);
             }
-            catch (Exception e)
+            catch (final Exception e)
             {
                 e.printStackTrace();
                 continue;
             }
-        }
         
-        final NBTTagList stopwatches = data.getTagList("stopwatches");        
+        final NBTTagList stopwatches = data.getTagList("stopwatches");
         for (int i = 0; i < stopwatches.tagCount(); i++)
-        {
             try
             {
                 final NBTTagCompound stopwatchTag = (NBTTagCompound) stopwatches.tagAt(i);
-                Class<?> c = Class.forName(stopwatchTag.getString("class"));
-                IStopwatchBase stopwatch = (IStopwatchBase) c.newInstance();
+                final Class<?> c = Class.forName(stopwatchTag.getString("class"));
+                final IStopwatchBase stopwatch = (IStopwatchBase) c.newInstance();
                 stopwatch.fromNBT(stopwatchTag);
-                addStopwatch(stopwatch);
+                this.addStopwatch(stopwatch);
             }
-            catch (Exception e)
+            catch (final Exception e)
             {
                 e.printStackTrace();
                 continue;
             }
-        }
     }
-
+    
     public void save()
     {
-        NBTTagCompound data = DataHelper.readData(Archive.MOD_ID, "timers");
+        final NBTTagCompound data = DataHelper.readData(Archive.MOD_ID, "timers");
         
-        NBTTagList timers = new NBTTagList("timers");
-        for (ITimerBase timer : timerList.values())
+        final NBTTagList timers = new NBTTagList("timers");
+        for (final ITimerBase timer : this.timerList.values())
             timers.appendTag(timer.toNBT());
         data.setTag(timers.getName(), timers);
         
-        NBTTagList stopwatches = new NBTTagList("stopwatches");
-        for (IStopwatchBase timer : stopwatchList.values())
+        final NBTTagList stopwatches = new NBTTagList("stopwatches");
+        for (final IStopwatchBase timer : this.stopwatchList.values())
             stopwatches.appendTag(timer.toNBT());
         data.setTag(stopwatches.getName(), stopwatches);
         

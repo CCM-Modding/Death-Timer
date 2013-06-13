@@ -41,7 +41,7 @@ public class ClientTimer implements IScheduledTickHandler, IPlayerTracker
     /*
      * Useful stuff starts here.
      */
-    public ConcurrentHashMap<String, ITimerBase> serverTimerList = new ConcurrentHashMap<String, ITimerBase>();
+    public ConcurrentHashMap<String, ITimerBase>     serverTimerList     = new ConcurrentHashMap<String, ITimerBase>();
     
     public ConcurrentHashMap<String, IStopwatchBase> serverStopwatchList = new ConcurrentHashMap<String, IStopwatchBase>();
     

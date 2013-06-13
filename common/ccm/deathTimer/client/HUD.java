@@ -37,7 +37,7 @@ public class HUD
     {
         final ArrayList<String> text = Config.useRightSide ? event.right : event.left;
         
-        if (!ClientTimer.getInstance().serverTimerList.isEmpty()) text.add(THEADER);
+        if (!ClientTimer.getInstance().serverTimerList.isEmpty()) text.add(HUD.THEADER);
         /* Add all the timers */
         for (final ITimerBase data : ClientTimer.getInstance().serverTimerList.values())
             text.addAll(data.getTimerString(player));
@@ -47,7 +47,7 @@ public class HUD
     {
         final ArrayList<String> text = Config.useRightSide ? event.right : event.left;
         
-        if (!ClientTimer.getInstance().serverStopwatchList.isEmpty()) text.add(SHEADER);
+        if (!ClientTimer.getInstance().serverStopwatchList.isEmpty()) text.add(HUD.SHEADER);
         /* Add all the timers */
         for (final IStopwatchBase data : ClientTimer.getInstance().serverStopwatchList.values())
             text.addAll(data.getTimerString(player));

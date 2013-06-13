@@ -35,8 +35,9 @@ public class HardStopwatchAPI
     
     /**
      * Add a personal stopwatch.
+     * 
      * @param label
-     *              UNIQUE KEY
+     *            UNIQUE KEY
      * @param username
      */
     public static void newStopwatch(final String label, final String username)
@@ -62,7 +63,7 @@ public class HardStopwatchAPI
         data.setTime(-1);
         ServerTimer.getInstance().addStopwatch(data);
     }
-
+    
     /**
      * Call to pause/unpause the stopwatch.
      * 
@@ -72,7 +73,7 @@ public class HardStopwatchAPI
      *            Pause?
      * @return
      */
-    public static void pauseStopwatch(String label, boolean pause)
+    public static void pauseStopwatch(final String label, final boolean pause)
     {
         final IStopwatchBase data = ServerTimer.getInstance().stopwatchList.get(label);
         data.setPaused(pause);

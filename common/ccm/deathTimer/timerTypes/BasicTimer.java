@@ -185,29 +185,29 @@ public class BasicTimer implements ITimerBase
     {
         return false;
     }
-
+    
     @Override
     public NBTTagCompound toNBT()
     {
-        NBTTagCompound tag = new NBTTagCompound(label);
+        final NBTTagCompound tag = new NBTTagCompound(this.label);
         tag.setString("class", this.getClass().getName());
         
-        tag.setInteger("time", time);
-        tag.setString("label", label);
-        if (useSound())
+        tag.setInteger("time", this.time);
+        tag.setString("label", this.label);
+        if (this.useSound())
         {
-            tag.setString("soundName", soundName);
-            tag.setFloat("soundVolume", soundVolume);
-            tag.setFloat("soundPitch", soundPitch);    
+            tag.setString("soundName", this.soundName);
+            tag.setFloat("soundVolume", this.soundVolume);
+            tag.setFloat("soundPitch", this.soundPitch);
         }
-                
+        
         return tag;
     }
-
+    
     @Override
-    public ITimerBase fromNBT(NBTTagCompound tag)
+    public ITimerBase fromNBT(final NBTTagCompound tag)
     {
-        BasicTimer out = new BasicTimer();
+        final BasicTimer out = new BasicTimer();
         
         out.time = tag.getInteger("time");
         out.label = tag.getString("label");
@@ -215,7 +215,7 @@ public class BasicTimer implements ITimerBase
         {
             out.soundName = tag.getString("soundName");
             out.soundVolume = tag.getFloat("soundVolume");
-            out.soundPitch = tag.getFloat("soundPitch");    
+            out.soundPitch = tag.getFloat("soundPitch");
         }
         
         return out;

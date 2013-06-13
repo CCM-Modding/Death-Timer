@@ -18,17 +18,17 @@ import ccm.deathTimer.timerTypes.IStopwatchBase;
  */
 public class Stopwatch extends CommandBase
 {
-    public final static String ListSyntax = "list";
+    public final static String ListSyntax  = "list";
     
-    public final static String AddSyntax  = "add <name> [personal:default=true|false]";
+    public final static String AddSyntax   = "add <name> [personal:default=true|false]";
     
-    public final static String StopSyntax = "stop <name>";
+    public final static String StopSyntax  = "stop <name>";
     
     public final static String PauseSyntax = "pause <name>";
     
-    public final static String OpArgs     = "[" + Stopwatch.ListSyntax + "|" + Stopwatch.AddSyntax + "|" + Stopwatch.StopSyntax + "]";
+    public final static String OpArgs      = "[" + Stopwatch.ListSyntax + "|" + Stopwatch.AddSyntax + "|" + Stopwatch.StopSyntax + "]";
     
-    public final static String NonOpArgs  = "[" + Stopwatch.ListSyntax + "|" + Stopwatch.StopSyntax + "|" + Stopwatch.StopSyntax + "|" + Stopwatch.PauseSyntax + "]";
+    public final static String NonOpArgs   = "[" + Stopwatch.ListSyntax + "|" + Stopwatch.StopSyntax + "|" + Stopwatch.StopSyntax + "|" + Stopwatch.PauseSyntax + "]";
     
     @Override
     public String getCommandName()
@@ -43,7 +43,7 @@ public class Stopwatch extends CommandBase
         
         if (args.length == 1 && args[0].equalsIgnoreCase("help"))
         {
-            sender.sendChatToPlayer(EnumChatFormatting.GREEN + "Useage: /" + this.getCommandName() + " " + (op ? OpArgs : NonOpArgs));
+            sender.sendChatToPlayer(EnumChatFormatting.GREEN + "Useage: /" + this.getCommandName() + " " + (op ? Stopwatch.OpArgs : Stopwatch.NonOpArgs));
             if (!op) sender.sendChatToPlayer(EnumChatFormatting.GREEN + "Note that you can only change your own stopwatches!");
             return;
         }
@@ -64,8 +64,7 @@ public class Stopwatch extends CommandBase
             this.processCommandAdd(sender, args, op);
         else if (args[0].equalsIgnoreCase("stop"))
             this.processCommandStop(sender, args, op);
-        else if (args[0].equalsIgnoreCase("pause"))
-            this.processCommandPause(sender, args, op);
+        else if (args[0].equalsIgnoreCase("pause")) this.processCommandPause(sender, args, op);
     }
     
     /**
@@ -74,9 +73,7 @@ public class Stopwatch extends CommandBase
     public void processCommandStop(final ICommandSender sender, final String[] args, final boolean op)
     {
         if (args.length < 1)
-        {
             sender.sendChatToPlayer(EnumChatFormatting.RED + "Syntax error. Use: /" + this.getCommandName() + " " + Timer.StopSyntax);
-        }
         else if (ServerTimer.getInstance().stopwatchList.containsKey(args[1]))
         {
             final IStopwatchBase timer = ServerTimer.getInstance().stopwatchList.get(args[1]);
@@ -99,7 +96,7 @@ public class Stopwatch extends CommandBase
     public void processCommandAdd(final ICommandSender sender, final String[] args, final boolean op)
     {
         if (args.length <= 1)
-            sender.sendChatToPlayer(EnumChatFormatting.RED + "Syntax error. Use: /" + this.getCommandName() + " " + AddSyntax);
+            sender.sendChatToPlayer(EnumChatFormatting.RED + "Syntax error. Use: /" + this.getCommandName() + " " + Stopwatch.AddSyntax);
         else if (ServerTimer.getInstance().stopwatchList.containsKey(args[1]))
             sender.sendChatToPlayer(EnumChatFormatting.RED + "This stopwatch already exists.");
         else if (args.length >= 3 && Boolean.parseBoolean(args[2]))
@@ -114,9 +111,7 @@ public class Stopwatch extends CommandBase
     public void processCommandPause(final ICommandSender sender, final String[] args, final boolean op)
     {
         if (args.length < 1)
-        {
             sender.sendChatToPlayer(EnumChatFormatting.RED + "Syntax error. Use: /" + this.getCommandName() + " " + Timer.StopSyntax);
-        }
         else if (ServerTimer.getInstance().stopwatchList.containsKey(args[1]))
         {
             final IStopwatchBase timer = ServerTimer.getInstance().stopwatchList.get(args[1]);

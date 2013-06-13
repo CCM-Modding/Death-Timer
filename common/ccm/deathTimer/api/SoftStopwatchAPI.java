@@ -66,8 +66,9 @@ public class SoftStopwatchAPI
     
     /**
      * Add a personal stopwatch.
+     * 
      * @param label
-     *              UNIQUE KEY
+     *            UNIQUE KEY
      * @param username
      */
     public static boolean newStopwatch(final String label, final String username)

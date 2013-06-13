@@ -117,21 +117,21 @@ public class PointTimer extends BasicTimer
     @Override
     public NBTTagCompound toNBT()
     {
-        NBTTagCompound tag = super.toNBT();
+        final NBTTagCompound tag = super.toNBT();
         tag.setString("class", this.getClass().getName());
         
-        tag.setInteger("X", X);
-        tag.setInteger("Y", Y);
-        tag.setInteger("Z", Z);
-        tag.setInteger("dim", dim);
+        tag.setInteger("X", this.X);
+        tag.setInteger("Y", this.Y);
+        tag.setInteger("Z", this.Z);
+        tag.setInteger("dim", this.dim);
         
         return tag;
     }
-
+    
     @Override
-    public ITimerBase fromNBT(NBTTagCompound tag)
+    public ITimerBase fromNBT(final NBTTagCompound tag)
     {
-        PointTimer out = (PointTimer) super.fromNBT(tag);
+        final PointTimer out = (PointTimer) super.fromNBT(tag);
         
         out.X = tag.getInteger("X");
         out.Z = tag.getInteger("Y");

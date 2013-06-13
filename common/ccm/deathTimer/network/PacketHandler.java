@@ -37,9 +37,9 @@ public class PacketHandler implements IPacketHandler
                 
                 switch (ID)
                 {
-                    /*
-                     * Timers
-                     */
+                /*
+                 * Timers
+                 */
                     case BasicTimer.PACKETID:
                         ClientTimer.getInstance().updateServerTimer(new BasicTimer().getUpdate(stream));
                         break;
@@ -49,7 +49,7 @@ public class PacketHandler implements IPacketHandler
                     case DeathTimer.PACKETID:
                         ClientTimer.getInstance().updateServerTimer(new DeathTimer().getUpdate(stream));
                         break;
-                        
+                    
                     /*
                      * Stopwatches
                      */

@@ -6,14 +6,15 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.google.common.base.Strings;
-
 import net.minecraft.command.ICommandSender;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.server.MinecraftServer;
 import ccm.deathTimer.utils.FunctionHelper;
 import ccm.deathTimer.utils.lib.Archive;
+
+import com.google.common.base.Strings;
+
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
@@ -150,29 +151,27 @@ public class BasicStopwatch implements IStopwatchBase
     @Override
     public NBTTagCompound toNBT()
     {
-        NBTTagCompound tag = new NBTTagCompound(label);
+        final NBTTagCompound tag = new NBTTagCompound(this.label);
         tag.setString("class", this.getClass().getName());
         
-        tag.setInteger("time", time);
-        tag.setString("label", label);
-        tag.setBoolean("personal", personal);
-        if (!Strings.isNullOrEmpty(username))
-            tag.setString("username", username);
-        tag.setBoolean("paused", paused);
+        tag.setInteger("time", this.time);
+        tag.setString("label", this.label);
+        tag.setBoolean("personal", this.personal);
+        if (!Strings.isNullOrEmpty(this.username)) tag.setString("username", this.username);
+        tag.setBoolean("paused", this.paused);
         
         return tag;
     }
-
+    
     @Override
-    public IStopwatchBase fromNBT(NBTTagCompound tag)
+    public IStopwatchBase fromNBT(final NBTTagCompound tag)
     {
-        BasicStopwatch out = new BasicStopwatch();
+        final BasicStopwatch out = new BasicStopwatch();
         
         out.time = tag.getInteger("time");
         out.label = tag.getString("label");
         out.personal = tag.getBoolean("personal");
-        if (tag.hasKey("username"))
-            out.username = tag.getString("username");
+        if (tag.hasKey("username")) out.username = tag.getString("username");
         out.paused = tag.getBoolean("paused");
         
         return out;

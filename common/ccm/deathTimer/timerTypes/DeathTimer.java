@@ -155,20 +155,20 @@ public class DeathTimer extends PointTimer
     @Override
     public NBTTagCompound toNBT()
     {
-        NBTTagCompound tag = super.toNBT();
+        final NBTTagCompound tag = super.toNBT();
         tag.setString("class", this.getClass().getName());
         
-        tag.setBoolean("isLoaded", isLoaded);
-        tag.setString("username", username);
-        tag.setLong("chunkKey", chunkKey);
+        tag.setBoolean("isLoaded", this.isLoaded);
+        tag.setString("username", this.username);
+        tag.setLong("chunkKey", this.chunkKey);
         
         return tag;
     }
-
+    
     @Override
-    public ITimerBase fromNBT(NBTTagCompound tag)
+    public ITimerBase fromNBT(final NBTTagCompound tag)
     {
-        DeathTimer out = (DeathTimer) super.fromNBT(tag);
+        final DeathTimer out = (DeathTimer) super.fromNBT(tag);
         
         out.isLoaded = tag.getBoolean("isLoaded");
         out.username = tag.getString("username");
