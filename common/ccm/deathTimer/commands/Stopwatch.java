@@ -20,7 +20,7 @@ public class Stopwatch extends CommandBase
 {
     public final static String ListSyntax  = "list";
     
-    public final static String AddSyntax   = "add <name> [personal:default=true|false]";
+    public final static String AddSyntax   = "add <name> [true|false (personal)]";
     
     public final static String StopSyntax  = "stop <name>";
     
