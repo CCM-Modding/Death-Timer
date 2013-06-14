@@ -3,7 +3,7 @@ package ccm.deathTimer.utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumChatFormatting;
-import ccm.nucleum.utils.lib.Arrows;
+import ccm.nucleum_omnium.utils.lib.Arrows;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 /**

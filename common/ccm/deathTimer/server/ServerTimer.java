@@ -9,7 +9,7 @@ import ccm.deathTimer.Config;
 import ccm.deathTimer.timerTypes.IStopwatchBase;
 import ccm.deathTimer.timerTypes.ITimerBase;
 import ccm.deathTimer.utils.lib.Archive;
-import ccm.nucleum.helper.DataHelper;
+import ccm.nucleum_omnium.helper.DataHelper;
 import cpw.mods.fml.common.IScheduledTickHandler;
 import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.registry.TickRegistry;

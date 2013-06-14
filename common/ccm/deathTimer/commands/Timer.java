@@ -12,7 +12,7 @@ import ccm.deathTimer.server.ServerTimer;
 import ccm.deathTimer.timerTypes.DeathTimer;
 import ccm.deathTimer.timerTypes.ITimerBase;
 import ccm.deathTimer.timerTypes.PointTimer;
-import ccm.nucleum.helper.JavaHelper;
+import ccm.nucleum_omnium.helper.JavaHelper;
 
 /**
  * You need OP to change server wide settings, Cient only changes are send back via packets and are saved in the client config.
