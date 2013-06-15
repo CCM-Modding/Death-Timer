@@ -16,7 +16,7 @@ import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 /**
- * Does the timing server side. Sends updates to the client when needed. Removed expired timers too.
+ * Does the timing server side. Sends updates to the client when needed. Removes expired timers too.
  * 
  * @author Dries007
  */
