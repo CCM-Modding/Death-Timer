@@ -40,7 +40,16 @@ public class HUD
         if (!ClientTimer.getInstance().serverTimerList.isEmpty()) text.add(HUD.THEADER);
         /* Add all the timers */
         for (final ITimerBase data : ClientTimer.getInstance().serverTimerList.values())
-            text.addAll(data.getTimerString(player));
+        {
+            try
+            {
+                text.addAll(data.getTimerString(player));
+            }
+            catch (Exception e)
+            {
+                
+            }
+        }
     }
     
     private void doStopwathes(final Text event, final EntityPlayer player)
@@ -50,6 +59,15 @@ public class HUD
         if (!ClientTimer.getInstance().serverStopwatchList.isEmpty()) text.add(HUD.SHEADER);
         /* Add all the timers */
         for (final IStopwatchBase data : ClientTimer.getInstance().serverStopwatchList.values())
-            text.addAll(data.getTimerString(player));
+        {
+            try
+            {
+                text.addAll(data.getTimerString(player));
+            }
+            catch (Exception e)
+            {
+                
+            }
+        }
     }
 }
