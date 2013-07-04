@@ -47,7 +47,7 @@ public class HUD
             }
             catch (Exception e)
             {
-                
+                e.printStackTrace();
             }
         }
     }
@@ -66,7 +66,7 @@ public class HUD
             }
             catch (Exception e)
             {
-                
+                e.printStackTrace();
             }
         }
     }
