@@ -1,5 +1,7 @@
 package ccm.deathTimer.server;
 
+import java.util.ArrayList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
@@ -12,6 +14,7 @@ import net.minecraftforge.event.world.ChunkEvent;
 import ccm.deathTimer.timerTypes.DeathTimer;
 import ccm.deathTimer.timerTypes.IStopwatchBase;
 import ccm.deathTimer.timerTypes.ITimerBase;
+import ccm.deathTimer.utils.Pair;
 
 import com.google.common.collect.HashMultimap;
 
@@ -41,9 +44,13 @@ public class EventTracker implements IPlayerTracker
     @ForgeSubscribe
     public void handleDeath(final PlayerDropsEvent e)
     {
+        ArrayList<Pair<Long, DeathTimer>> toRemove = new ArrayList<Pair<Long, DeathTimer>>();
         for (final long key : EventTracker.ChuncksToTrackMap.keySet())
             for (final DeathTimer dat : EventTracker.ChuncksToTrackMap.get(key))
-                if (dat.username.equals(e.entityPlayer.username)) EventTracker.ChuncksToTrackMap.remove(key, dat);
+                if (dat.username.equals(e.entityPlayer.username)) toRemove.add(new Pair<Long, DeathTimer>(key, dat));
+        for (Pair<Long, DeathTimer> p : toRemove)
+            EventTracker.ChuncksToTrackMap.remove(p.key, p.value);
+        
         
         if (!e.entityPlayer.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory"))
         {
