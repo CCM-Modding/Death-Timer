@@ -10,7 +10,6 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraftforge.common.DimensionManager;
 import ccm.deathTimer.utils.FunctionHelper;
 import ccm.deathTimer.utils.lib.Archive;
 import cpw.mods.fml.common.network.PacketDispatcher;
@@ -100,7 +99,7 @@ public class PointTimer extends BasicTimer
         if (sender instanceof EntityPlayer)
         {
             final EntityPlayer player = (EntityPlayer) sender;
-            text.add(player.dimension == this.dim ? this.getDistance(player) + "m " + FunctionHelper.getArrowTo(this.X, this.Z, player) : DimensionManager.getWorld(this.dim).getProviderName());
+            text.add(player.dimension == this.dim ? this.getDistance(player) + "m " + FunctionHelper.getArrowTo(this.X, this.Z, player) : "Dim " + this.dim);
         }
         return text;
     }
