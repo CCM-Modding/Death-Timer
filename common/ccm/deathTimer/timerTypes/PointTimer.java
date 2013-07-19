@@ -130,7 +130,16 @@ public class PointTimer extends BasicTimer
     @Override
     public ITimerBase fromNBT(final NBTTagCompound tag)
     {
-        final PointTimer out = (PointTimer) super.fromNBT(tag);
+        final PointTimer out = new PointTimer();
+        
+        out.time = tag.getInteger("time");
+        out.label = tag.getString("label");
+        if (tag.hasKey("soundName"))
+        {
+            out.soundName = tag.getString("soundName");
+            out.soundVolume = tag.getFloat("soundVolume");
+            out.soundPitch = tag.getFloat("soundPitch");
+        }
         
         out.X = tag.getInteger("X");
         out.Z = tag.getInteger("Y");

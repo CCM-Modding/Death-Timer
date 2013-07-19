@@ -168,7 +168,22 @@ public class DeathTimer extends PointTimer
     @Override
     public ITimerBase fromNBT(final NBTTagCompound tag)
     {
-        final DeathTimer out = (DeathTimer) super.fromNBT(tag);
+        final DeathTimer out = new DeathTimer();
+
+        out.time = tag.getInteger("time");
+        out.label = tag.getString("label");
+        if (tag.hasKey("soundName"))
+        {
+            out.soundName = tag.getString("soundName");
+            out.soundVolume = tag.getFloat("soundVolume");
+            out.soundPitch = tag.getFloat("soundPitch");
+        }
+        
+        out.X = tag.getInteger("X");
+        out.Z = tag.getInteger("Y");
+        out.Y = tag.getInteger("Z");
+        out.dim = tag.getInteger("dim");
+        
         
         out.isLoaded = tag.getBoolean("isLoaded");
         out.username = tag.getString("username");
