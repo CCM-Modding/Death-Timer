@@ -50,8 +50,15 @@ public class ServerTimer implements IScheduledTickHandler
     
     public void addTimer(final ITimerBase data)
     {
-        this.timerList.put(data.getLabel(), data);
-        data.sendAutoUpdate();
+        try
+        {
+            this.timerList.put(data.getLabel(), data);
+            data.sendAutoUpdate();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
     @Override
@@ -107,10 +114,9 @@ public class ServerTimer implements IScheduledTickHandler
             try
             {
                 final NBTTagCompound timerTag = (NBTTagCompound) timers.tagAt(i);
-                final Class<?> c = Class.forName(timerTag.getString("class"));
-                final ITimerBase timer = (ITimerBase) c.newInstance();
-                timer.fromNBT(timerTag);
-                this.addTimer(timer);
+                @SuppressWarnings("unchecked")
+                final Class<? extends ITimerBase> c = (Class<? extends ITimerBase>) Class.forName(timerTag.getString("class"));
+                addTimer(c.cast(c.newInstance()).fromNBT(timerTag));
             }
             catch (final Exception e)
             {
