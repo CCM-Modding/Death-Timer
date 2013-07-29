@@ -7,7 +7,7 @@ public final class Archive
     
     public static final String MOD_NAME           = "Death Timer";
     
-    public static final String MOD_PREFIX         = "deathTimer";
+    public static final String MOD_PREFIX         = MOD_ID;
     
     public static final String MOD_CHANNEL_TIMERS = "DT";
     

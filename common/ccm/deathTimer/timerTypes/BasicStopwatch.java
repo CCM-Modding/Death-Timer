@@ -18,6 +18,11 @@ import com.google.common.base.Strings;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
+/**
+ * Extend to make it more useful (or implement {@link IStopwatchBase}).
+ * 
+ * @author Dries007
+ */
 public class BasicStopwatch implements IStopwatchBase
 {
     public static final int PACKETID = 10;

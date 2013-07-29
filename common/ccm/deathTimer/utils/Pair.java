@@ -1,27 +1,30 @@
 package ccm.deathTimer.utils;
 
-public class Pair<V, K>
+/**
+ * Simple Key Value Pair
+ * 
+ * @author Dries007
+ *
+ * @param <K> Key
+ * @param <V> Value
+ */
+public class Pair<K, V>
 {
-    public V key;
-    public K value;
+    public K key;
+    public V value;
     
-    public Pair(V key, K value)
+    public Pair(K key, V value)
     {
         this.key = key;
         this.value = value;
     }
-    
-    public Pair()
-    {   
         
-    }
-    
-    public V getKey()
+    public K getKey()
     {
         return key;
     }
     
-    public K getValue()
+    public V getValue()
     {
         return value;
     }

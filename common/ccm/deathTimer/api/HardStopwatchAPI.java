@@ -23,7 +23,6 @@ public class HardStopwatchAPI
      * 
      * @param label
      *            UNIQUE KEY
-     * @return
      */
     public static void newStopwatch(final String label)
     {
@@ -55,7 +54,6 @@ public class HardStopwatchAPI
      * 
      * @param label
      *            UNIQUE KEY
-     * @return
      */
     public static void stopStopwatch(final String label)
     {
@@ -71,7 +69,6 @@ public class HardStopwatchAPI
      *            UNIQUE KEY
      * @param pause
      *            Pause?
-     * @return
      */
     public static void pauseStopwatch(final String label, final boolean pause)
     {

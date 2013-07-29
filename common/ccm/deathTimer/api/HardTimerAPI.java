@@ -25,7 +25,6 @@ public class HardTimerAPI
      * @param label
      *            UNIQUE KEY
      * @param time
-     * @return
      */
     public static void newBasicTimer(final String label, final int time)
     {
@@ -46,7 +45,6 @@ public class HardTimerAPI
      * @param Y
      * @param Z
      * @param dim
-     * @return
      */
     public static void newPointTimer(final String label, final int time, final int X, final int Y, final int Z, final int dim)
     {
@@ -71,7 +69,6 @@ public class HardTimerAPI
      * @param sound
      * @param volume
      * @param pitch
-     * @return
      */
     public static void setSound(final String label, final String sound, final float volume, final float pitch)
     {
@@ -89,7 +86,6 @@ public class HardTimerAPI
      * 
      * @param label
      *            UNIQUE KEY
-     * @return
      */
     public static void stopTimer(final String label)
     {

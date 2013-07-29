@@ -15,7 +15,7 @@ import ccm.deathTimer.timerTypes.PointTimer;
 import ccm.nucleum_omnium.helper.JavaHelper;
 
 /**
- * You need OP to change server wide settings, Cient only changes are send back via packets and are saved in the client config.
+ * You need OP to change server wide settings, Client only changes are send back via packets and are saved in the client config.
  * 
  * @author Dries007
  */

@@ -23,7 +23,7 @@ import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
 /**
- * Main mod class. Main author: Dries007 Idea and concept: Claycorp
+ * Main mod class. Main author: Dries007, Idea and concept: Claycorp
  * 
  * @author Dries007
  */

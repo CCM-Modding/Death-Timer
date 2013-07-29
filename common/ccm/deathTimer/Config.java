@@ -5,7 +5,7 @@ import java.io.File;
 import net.minecraftforge.common.Configuration;
 
 /**
- * The config file, forgeconfig style.
+ * The config file, forge config style.
  * 
  * @author Dries007
  */

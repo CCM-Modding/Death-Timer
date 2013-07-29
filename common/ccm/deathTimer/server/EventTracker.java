@@ -25,11 +25,10 @@ import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
- * Sends user all timers when he logs in.
+ * Sends user all timers when he/she logs in.
  * 
  * @author Dries007
  */
-
 public class EventTracker implements IPlayerTracker
 {
     
