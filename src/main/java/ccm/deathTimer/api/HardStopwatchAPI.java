@@ -7,36 +7,33 @@ import ccm.deathTimer.timerTypes.IStopwatchBase;
 
 public class HardStopwatchAPI
 {
-    
     /**
      * If false, the class is not loaded and you can't use the stopwatch functions.
-     * 
+     *
      * @return
      */
     public static boolean isLoaded()
     {
         return DeathTimer.instance != null;
     }
-    
+
     /**
      * Add a stopwatch.
-     * 
-     * @param label
-     *            UNIQUE KEY
+     *
+     * @param label UNIQUE KEY
      */
     public static void newStopwatch(final String label)
     {
         final BasicStopwatch data = new BasicStopwatch();
         data.label = label;
-        
+
         ServerTimer.getInstance().addStopwatch(data);
     }
-    
+
     /**
      * Add a personal stopwatch.
-     * 
-     * @param label
-     *            UNIQUE KEY
+     *
+     * @param label    UNIQUE KEY
      * @param username
      */
     public static void newStopwatch(final String label, final String username)
@@ -45,15 +42,14 @@ public class HardStopwatchAPI
         data.label = label;
         data.personal = true;
         data.username = username;
-        
+
         ServerTimer.getInstance().addStopwatch(data);
     }
-    
+
     /**
      * Call to stop the stopwatch.
-     * 
-     * @param label
-     *            UNIQUE KEY
+     *
+     * @param label UNIQUE KEY
      */
     public static void stopStopwatch(final String label)
     {
@@ -61,14 +57,12 @@ public class HardStopwatchAPI
         data.setTime(-1);
         ServerTimer.getInstance().addStopwatch(data);
     }
-    
+
     /**
      * Call to pause/unpause the stopwatch.
-     * 
-     * @param label
-     *            UNIQUE KEY
-     * @param pause
-     *            Pause?
+     *
+     * @param label UNIQUE KEY
+     * @param pause Pause?
      */
     public static void pauseStopwatch(final String label, final boolean pause)
     {

@@ -2,18 +2,14 @@ package ccm.deathTimer.api;
 
 import java.lang.reflect.Method;
 
-@SuppressWarnings({ "unchecked", "rawtypes" })
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class SoftStopwatchAPI
 {
-    
-    public static final String   APICLASSNAME = "ccm.deathTimer.api.HardStopwatchAPI";
-    
-    private static Class         c            = SoftStopwatchAPI.getAPIClass();
-    
-    private static boolean       loaded;
-    
-    private static final boolean DEBUG        = true;
-    
+    public static final String APICLASSNAME = "ccm.deathTimer.api.HardStopwatchAPI";
+    private static Class c = SoftStopwatchAPI.getAPIClass();
+    private static boolean loaded;
+    private static final boolean DEBUG = true;
+
     private static Class getAPIClass()
     {
         try
@@ -29,22 +25,21 @@ public class SoftStopwatchAPI
         }
         return null;
     }
-    
+
     /**
      * If false, the class is not loaded and you can't use the stopwatch functions.
-     * 
+     *
      * @return
      */
     public static boolean isLoaded()
     {
         return SoftStopwatchAPI.loaded;
     }
-    
+
     /**
      * Add a stopwatch.
-     * 
-     * @param label
-     *            UNIQUE KEY
+     *
+     * @param label UNIQUE KEY
      * @param time
      * @return
      */
@@ -54,7 +49,7 @@ public class SoftStopwatchAPI
         {
             final Method m = SoftStopwatchAPI.c.getMethod("newStopwatch", String.class);
             m.invoke(null, label);
-            
+
             return true;
         }
         catch (final Exception e)
@@ -63,12 +58,11 @@ public class SoftStopwatchAPI
             return false;
         }
     }
-    
+
     /**
      * Add a personal stopwatch.
-     * 
-     * @param label
-     *            UNIQUE KEY
+     *
+     * @param label    UNIQUE KEY
      * @param username
      */
     public static boolean newStopwatch(final String label, final String username)
@@ -77,7 +71,7 @@ public class SoftStopwatchAPI
         {
             final Method m = SoftStopwatchAPI.c.getMethod("newStopwatch", String.class, String.class);
             m.invoke(null, label, username);
-            
+
             return true;
         }
         catch (final Exception e)
@@ -86,12 +80,11 @@ public class SoftStopwatchAPI
             return false;
         }
     }
-    
+
     /**
      * Call to stop the stopwatch.
-     * 
-     * @param label
-     *            UNIQUE KEY
+     *
+     * @param label UNIQUE KEY
      * @return
      */
     public static boolean stopStopwatch(final String label)
@@ -100,7 +93,7 @@ public class SoftStopwatchAPI
         {
             final Method m = SoftStopwatchAPI.c.getMethod("stopStopwatch", String.class);
             m.invoke(null, label);
-            
+
             return true;
         }
         catch (final Exception e)
@@ -109,12 +102,11 @@ public class SoftStopwatchAPI
             return false;
         }
     }
-    
+
     /**
      * Call to stop the stopwatch.
-     * 
-     * @param label
-     *            UNIQUE KEY
+     *
+     * @param label UNIQUE KEY
      * @return
      */
     public static boolean pauseStopwatch(final String label, final boolean pause)
@@ -123,7 +115,7 @@ public class SoftStopwatchAPI
         {
             final Method m = SoftStopwatchAPI.c.getMethod("pauseStopwatch", String.class, boolean.class);
             m.invoke(null, label, pause);
-            
+
             return true;
         }
         catch (final Exception e)

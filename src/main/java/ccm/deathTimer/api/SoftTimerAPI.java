@@ -2,18 +2,14 @@ package ccm.deathTimer.api;
 
 import java.lang.reflect.Method;
 
-@SuppressWarnings({ "unchecked", "rawtypes" })
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class SoftTimerAPI
 {
-    
-    public static final String   APICLASSNAME = "ccm.deathTimer.api.HardTimerAPI";
-    
-    private static Class         c            = SoftTimerAPI.getAPIClass();
-    
-    private static boolean       loaded;
-    
-    private static final boolean DEBUG        = true;
-    
+    public static final String APICLASSNAME = "ccm.deathTimer.api.HardTimerAPI";
+    private static Class c = SoftTimerAPI.getAPIClass();
+    private static boolean loaded;
+    private static final boolean DEBUG = true;
+
     private static Class getAPIClass()
     {
         try
@@ -29,22 +25,21 @@ public class SoftTimerAPI
         }
         return null;
     }
-    
+
     /**
      * If false, the class is not loaded and you can't use the timer functions.
-     * 
+     *
      * @return
      */
     public static boolean isLoaded()
     {
         return SoftTimerAPI.loaded;
     }
-    
+
     /**
      * Add a timer.
-     * 
-     * @param label
-     *            UNIQUE KEY
+     *
+     * @param label UNIQUE KEY
      * @param time
      * @return
      */
@@ -54,7 +49,7 @@ public class SoftTimerAPI
         {
             final Method m = SoftTimerAPI.c.getMethod("newBasicTimer", String.class, int.class);
             m.invoke(null, label, time);
-            
+
             return true;
         }
         catch (final Exception e)
@@ -63,12 +58,11 @@ public class SoftTimerAPI
             return false;
         }
     }
-    
+
     /**
      * Add a timer with arrow, distance and point.
-     * 
-     * @param label
-     *            UNIQUE KEY
+     *
+     * @param label UNIQUE KEY
      * @param time
      * @param X
      * @param Y
@@ -82,7 +76,7 @@ public class SoftTimerAPI
         {
             final Method m = SoftTimerAPI.c.getMethod("newPointTimer", String.class, int.class, int.class, int.class, int.class, int.class);
             m.invoke(null, label, time, X, Y, Z, dim);
-            
+
             return true;
         }
         catch (final Exception e)
@@ -91,12 +85,11 @@ public class SoftTimerAPI
             return false;
         }
     }
-    
+
     /**
      * Set the sound settings for a timer.
-     * 
-     * @param label
-     *            UNIQUE KEY
+     *
+     * @param label  UNIQUE KEY
      * @param sound
      * @param volume
      * @param pitch
@@ -108,7 +101,7 @@ public class SoftTimerAPI
         {
             final Method m = SoftTimerAPI.c.getMethod("setSound", String.class, String.class, float.class, float.class);
             m.invoke(null, label, sound, volume, pitch);
-            
+
             return true;
         }
         catch (final Exception e)
@@ -117,12 +110,11 @@ public class SoftTimerAPI
             return false;
         }
     }
-    
+
     /**
      * Call to stop the timer.
-     * 
-     * @param label
-     *            UNIQUE KEY
+     *
+     * @param label UNIQUE KEY
      * @return
      */
     public static boolean stopTimer(final String label)
@@ -131,7 +123,7 @@ public class SoftTimerAPI
         {
             final Method m = SoftTimerAPI.c.getMethod("stopTimer", String.class);
             m.invoke(null, label);
-            
+
             return true;
         }
         catch (final Exception e)

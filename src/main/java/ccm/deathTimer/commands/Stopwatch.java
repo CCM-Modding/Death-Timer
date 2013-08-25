@@ -1,36 +1,30 @@
 package ccm.deathTimer.commands;
 
-import static ccm.nucleum.omnium.utils.helper.CommandHelper.sendChat;
-
-import java.util.List;
-
+import ccm.deathTimer.api.HardStopwatchAPI;
+import ccm.deathTimer.server.ServerTimer;
+import ccm.deathTimer.timerTypes.IStopwatchBase;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumChatFormatting;
 
-import ccm.deathTimer.api.HardStopwatchAPI;
-import ccm.deathTimer.server.ServerTimer;
-import ccm.deathTimer.timerTypes.IStopwatchBase;
+import java.util.List;
+
+import static ccm.deathTimer.utils.FunctionHelper.sendChat;
 
 /**
  * You need OP to change server wide settings, Client only changes are send back via packets and are saved in the client config.
- * 
+ *
  * @author Dries007
  */
 public class Stopwatch extends CommandBase
 {
     public final static String ListSyntax = "list";
-
     public final static String AddSyntax = "add <name> [true|false (personal)]";
-
     public final static String StopSyntax = "stop <name>";
-
     public final static String PauseSyntax = "pause <name>";
-
     public final static String OpArgs = "[" + Stopwatch.ListSyntax + "|" + Stopwatch.AddSyntax + "|" + Stopwatch.StopSyntax + "]";
-
     public final static String NonOpArgs = "[" + Stopwatch.ListSyntax + "|" + Stopwatch.StopSyntax + "|" + Stopwatch.StopSyntax + "|" + Stopwatch.PauseSyntax + "]";
 
     @Override
@@ -42,8 +36,7 @@ public class Stopwatch extends CommandBase
     @Override
     public void processCommand(final ICommandSender sender, final String[] args)
     {
-        final boolean op = sender instanceof EntityPlayer ? MinecraftServer.getServer().isDedicatedServer() ? MinecraftServer.getServer().getConfigurationManager().getOps()
-                .contains(sender.getCommandSenderName()) : true : true;
+        final boolean op = sender instanceof EntityPlayer ? MinecraftServer.getServer().isDedicatedServer() ? MinecraftServer.getServer().getConfigurationManager().getOps().contains(sender.getCommandSenderName()) : true : true;
 
         if ((args.length == 1) && args[0].equalsIgnoreCase("help"))
         {
@@ -68,13 +61,16 @@ public class Stopwatch extends CommandBase
                 sendChat(sender, sb.toString());
             }
             sendChat(sender, "-----------------");
-        } else if (op && args[0].equalsIgnoreCase("add"))
+        }
+        else if (op && args[0].equalsIgnoreCase("add"))
         {
             processCommandAdd(sender, args, op);
-        } else if (args[0].equalsIgnoreCase("stop"))
+        }
+        else if (args[0].equalsIgnoreCase("stop"))
         {
             processCommandStop(sender, args, op);
-        } else if (args[0].equalsIgnoreCase("pause"))
+        }
+        else if (args[0].equalsIgnoreCase("pause"))
         {
             processCommandPause(sender, args, op);
         }
@@ -88,7 +84,8 @@ public class Stopwatch extends CommandBase
         if (args.length < 1)
         {
             sendChat(sender, EnumChatFormatting.RED + "Syntax error. Use: /" + getCommandName() + " " + Timer.StopSyntax);
-        } else if (ServerTimer.getInstance().stopwatchList.containsKey(args[1]))
+        }
+        else if (ServerTimer.getInstance().stopwatchList.containsKey(args[1]))
         {
             final IStopwatchBase timer = ServerTimer.getInstance().stopwatchList.get(args[1]);
 
@@ -96,11 +93,13 @@ public class Stopwatch extends CommandBase
             {
                 HardStopwatchAPI.stopStopwatch(args[1]);
                 sendChat(sender, EnumChatFormatting.GREEN + "Done.");
-            } else
+            }
+            else
             {
                 sendChat(sender, EnumChatFormatting.RED + "You can't edit this stopwatch.");
             }
-        } else
+        }
+        else
         {
             sendChat(sender, EnumChatFormatting.RED + "This stopwatch doesn't exists.");
         }
@@ -114,13 +113,16 @@ public class Stopwatch extends CommandBase
         if (args.length <= 1)
         {
             sendChat(sender, EnumChatFormatting.RED + "Syntax error. Use: /" + getCommandName() + " " + Stopwatch.AddSyntax);
-        } else if (ServerTimer.getInstance().stopwatchList.containsKey(args[1]))
+        }
+        else if (ServerTimer.getInstance().stopwatchList.containsKey(args[1]))
         {
             sendChat(sender, EnumChatFormatting.RED + "This stopwatch already exists.");
-        } else if ((args.length >= 3) && Boolean.parseBoolean(args[2]))
+        }
+        else if ((args.length >= 3) && Boolean.parseBoolean(args[2]))
         {
             HardStopwatchAPI.newStopwatch(args[1], sender.getCommandSenderName());
-        } else
+        }
+        else
         {
             HardStopwatchAPI.newStopwatch(args[1]);
         }
@@ -134,7 +136,8 @@ public class Stopwatch extends CommandBase
         if (args.length < 1)
         {
             sendChat(sender, EnumChatFormatting.RED + "Syntax error. Use: /" + getCommandName() + " " + Timer.StopSyntax);
-        } else if (ServerTimer.getInstance().stopwatchList.containsKey(args[1]))
+        }
+        else if (ServerTimer.getInstance().stopwatchList.containsKey(args[1]))
         {
             final IStopwatchBase timer = ServerTimer.getInstance().stopwatchList.get(args[1]);
 
@@ -142,11 +145,13 @@ public class Stopwatch extends CommandBase
             {
                 HardStopwatchAPI.pauseStopwatch(args[1], !ServerTimer.getInstance().stopwatchList.get(args[1]).isPaused());
                 sendChat(sender, EnumChatFormatting.GREEN + "Done.");
-            } else
+            }
+            else
             {
                 sendChat(sender, EnumChatFormatting.RED + "You can't edit this stopwatch.");
             }
-        } else
+        }
+        else
         {
             sendChat(sender, EnumChatFormatting.RED + "This stopwatch doesn't exists.");
         }
@@ -158,13 +163,16 @@ public class Stopwatch extends CommandBase
         if (args.length == 1)
         {
             return CommandBase.getListOfStringsMatchingLastWord(args, "help", "list", "add", "stop", "pause");
-        } else if ((args.length == 2) && (args[0].equalsIgnoreCase("stop") || args[0].equalsIgnoreCase("pause")))
+        }
+        else if ((args.length == 2) && (args[0].equalsIgnoreCase("stop") || args[0].equalsIgnoreCase("pause")))
         {
             return CommandBase.getListOfStringsFromIterableMatchingLastWord(args, ServerTimer.getInstance().stopwatchList.keySet());
-        } else if ((args.length == 3) && args[0].equalsIgnoreCase("add"))
+        }
+        else if ((args.length == 3) && args[0].equalsIgnoreCase("add"))
         {
             return CommandBase.getListOfStringsMatchingLastWord(args, "true", "false");
-        } else
+        }
+        else
         {
             return null;
         }
@@ -179,6 +187,6 @@ public class Stopwatch extends CommandBase
     @Override
     public String getCommandUsage(final ICommandSender icommandsender)
     {
-        return null;
+        return "Add, change or remove a stopwatch.";
     }
 }

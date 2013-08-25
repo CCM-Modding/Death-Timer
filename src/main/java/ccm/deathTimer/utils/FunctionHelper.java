@@ -1,33 +1,34 @@
 package ccm.deathTimer.utils;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumChatFormatting;
-
 import cpw.mods.fml.common.FMLCommonHandler;
-
-import ccm.nucleum.omnium.utils.lib.Arrows;
+import net.minecraft.client.Minecraft;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChatMessageComponent;
+import net.minecraft.util.EnumChatFormatting;
 
 /**
  * Static helper method class.
- * 
+ *
  * @author Dries007
  */
 public class FunctionHelper
 {
-
     public static String timeColor(final int time)
     {
         if (time <= 30)
         {
             return EnumChatFormatting.RED.toString();
-        } else if (time <= 60)
+        }
+        else if (time <= 60)
         {
             return EnumChatFormatting.GOLD.toString();
-        } else if (time <= 150)
+        }
+        else if (time <= 150)
         {
             return EnumChatFormatting.YELLOW.toString();
-        } else
+        }
+        else
         {
             return EnumChatFormatting.GREEN.toString();
         }
@@ -48,7 +49,7 @@ public class FunctionHelper
 
     /**
      * Gets a nice string with only needed elements. Max time is weeks
-     * 
+     *
      * @param timeInSec
      * @return Time in string format
      */
@@ -91,7 +92,7 @@ public class FunctionHelper
 
     /**
      * Play a sound. Client only. You need to do the server <=> client yourself.
-     * 
+     *
      * @param name
      * @param volume
      * @param pitch
@@ -107,5 +108,24 @@ public class FunctionHelper
         final float d5 = (float) mc.renderViewEntity.posY;
         final float d6 = (float) mc.renderViewEntity.posZ;
         mc.sndManager.playSound(name, d4, d5, d6, volume, pitch);
+    }
+
+    public static boolean isNumeric(final String str)
+    {
+        try
+        {
+            @SuppressWarnings("unused")
+            final double d = Double.parseDouble(str);
+        }
+        catch (final NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public static void sendChat(ICommandSender sender, String msg, Object... objects)
+    {
+        sender.sendChatToPlayer(ChatMessageComponent.func_111077_e(String.format(msg, objects)));
     }
 }

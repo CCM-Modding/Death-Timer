@@ -1,26 +1,23 @@
 package ccm.deathTimer.server;
 
-import java.util.EnumSet;
-import java.util.concurrent.ConcurrentHashMap;
-
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-
+import ccm.deathTimer.Config;
+import ccm.deathTimer.timerTypes.IStopwatchBase;
+import ccm.deathTimer.timerTypes.ITimerBase;
+import ccm.deathTimer.utils.DataHelper;
+import ccm.deathTimer.utils.lib.Archive;
 import cpw.mods.fml.common.IScheduledTickHandler;
 import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 
-import ccm.deathTimer.Config;
-import ccm.deathTimer.DeathTimer;
-import ccm.deathTimer.timerTypes.IStopwatchBase;
-import ccm.deathTimer.timerTypes.ITimerBase;
-import ccm.deathTimer.utils.lib.Archive;
-import ccm.nucleum.omnium.utils.helper.DataHelper;
+import java.util.EnumSet;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Does the timing server side. Sends updates to the client when needed. Removes expired timers too.
- * 
+ *
  * @author Dries007
  */
 public class ServerTimer implements IScheduledTickHandler
@@ -57,7 +54,8 @@ public class ServerTimer implements IScheduledTickHandler
         {
             timerList.put(data.getLabel(), data);
             data.sendAutoUpdate();
-        } catch (final Exception e)
+        }
+        catch (final Exception e)
         {
             e.printStackTrace();
         }
@@ -105,7 +103,8 @@ public class ServerTimer implements IScheduledTickHandler
 
     @Override
     public void tickEnd(final EnumSet<TickType> type, final Object... tickData)
-    {}
+    {
+    }
 
     @Override
     public EnumSet<TickType> ticks()
@@ -127,7 +126,7 @@ public class ServerTimer implements IScheduledTickHandler
 
     public void load()
     {
-        final NBTTagCompound data = DataHelper.readData(DeathTimer.instance, "timers");
+        final NBTTagCompound data = DataHelper.readData(Archive.MOD_ID, "timers");
 
         final NBTTagList timers = data.getTagList("timers");
         for (int i = 0; i < timers.tagCount(); i++)
@@ -137,7 +136,8 @@ public class ServerTimer implements IScheduledTickHandler
                 final NBTTagCompound timerTag = (NBTTagCompound) timers.tagAt(i);
                 final Class<? extends ITimerBase> c = (Class<? extends ITimerBase>) Class.forName(timerTag.getString("class"));
                 addTimer(c.cast(c.newInstance()).fromNBT(timerTag));
-            } catch (final Exception e)
+            }
+            catch (final Exception e)
             {
                 e.printStackTrace();
                 continue;
@@ -154,7 +154,8 @@ public class ServerTimer implements IScheduledTickHandler
                 final IStopwatchBase stopwatch = (IStopwatchBase) c.newInstance();
                 stopwatch.fromNBT(stopwatchTag);
                 addStopwatch(stopwatch);
-            } catch (final Exception e)
+            }
+            catch (final Exception e)
             {
                 e.printStackTrace();
                 continue;
@@ -164,7 +165,7 @@ public class ServerTimer implements IScheduledTickHandler
 
     public void save()
     {
-        final NBTTagCompound data = DataHelper.readData(DeathTimer.instance, "timers");
+        final NBTTagCompound data = DataHelper.readData(Archive.MOD_ID, "timers");
 
         final NBTTagList timers = new NBTTagList("timers");
         for (final ITimerBase timer : timerList.values())
@@ -180,6 +181,6 @@ public class ServerTimer implements IScheduledTickHandler
         }
         data.setTag(stopwatches.getName(), stopwatches);
 
-        DataHelper.saveData(DeathTimer.instance, "timers", data);
+        DataHelper.saveData(Archive.MOD_ID, "timers", data);
     }
 }
