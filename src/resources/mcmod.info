@@ -5,11 +5,12 @@
   "description": "You got 5 minutes!",
   "credits": "Coded by Dries007. Ideas by Claycorp",
   "logoFile": "/mods/deathTimer/logo.png",
-  "version": "1.42",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
   "url": "https://github.com/CCM-Modding/Death-Timer/",
   "updateUrl": "http://jenkins.dries007.net/view/CCM/job/DeathTimer/",
   "authors": [ "Dries007" ],
-  "screenshots": [ "/mods/deathTimer/screenshots/1.png" ],
+  "screenshots": [],
   "dependencies": [
      "required-after:nucleum_omnium"
   ]

@@ -12,10 +12,16 @@ buildscript {
 
 apply plugin: "gmcp"
 
+version = "1.1.0.${System.env.BUILD_NUMBER}"
 archivesBaseName = 'DeathTimer'
 minecraft.minecraftVersion = '1.6.2'
 
-processResources{}
+processResources{
+	eachFile { file ->
+		if (!(file.getPath().endsWith('png') || file.getPath().endsWith('obj'))){
+			expand version: version, mcversion: minecraft.minecraftVersion
+		}
+	}}
 
 // because the normal default jar task has been modified to be obfuscated
 task deobfJar(type: Jar) {
