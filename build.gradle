@@ -1,0 +1,28 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots"
+        }
+    }
+    dependencies {
+		classpath 'com.github.abrarsyed.gmcp:GMCP:0.7.4-SNAPSHOT'
+    }
+}
+
+apply plugin: "gmcp"
+
+archivesBaseName = 'DeathTimer'
+minecraft.minecraftVersion = '1.6.2'
+
+processResources{}
+
+// because the normal default jar task has been modified to be obfuscated
+task deobfJar(type: Jar) {
+	from sourceSets.main.output
+	appendix = 'dev'
+}
+
+artifacts {
+	archives deobfJar
+}
