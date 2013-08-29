@@ -53,7 +53,6 @@ public class EventTracker implements IPlayerTracker
             EventTracker.ChuncksToTrackMap.remove(p.key, p.value);
         }
 
-
         if (!e.entityPlayer.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory"))
         {
             final DeathTimer dat = new DeathTimer(e.entityPlayer);

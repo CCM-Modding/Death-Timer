@@ -32,6 +32,7 @@ public class DeathTimer extends PointTimer
     public boolean isLoaded;
     public String username;
     public long chunkKey;
+
     public DeathTimer()
     {
     }
@@ -45,6 +46,7 @@ public class DeathTimer extends PointTimer
         this.X = (int) player.posX;
         this.Y = (int) player.posY;
         this.Z = (int) player.posZ;
+        this.dim = player.dimension;
         this.chunkKey = ChunkCoordIntPair.chunkXZ2Int(this.X / 16, this.Y / 16);
 
         ServerTimer.getInstance().addTimer(this);
@@ -180,7 +182,6 @@ public class DeathTimer extends PointTimer
         out.Z = tag.getInteger("Y");
         out.Y = tag.getInteger("Z");
         out.dim = tag.getInteger("dim");
-
 
         out.isLoaded = tag.getBoolean("isLoaded");
         out.username = tag.getString("username");
