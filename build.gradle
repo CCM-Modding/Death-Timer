@@ -6,7 +6,7 @@ buildscript {
         }
     }
     dependencies {
-		classpath 'com.github.abrarsyed.gmcp:GMCP:0.7.4-SNAPSHOT'
+        classpath 'com.github.abrarsyed.gmcp:GMCP:0.7.4-SNAPSHOT'
     }
 }
 
@@ -17,18 +17,19 @@ archivesBaseName = 'DeathTimer'
 minecraft.minecraftVersion = '1.6.2'
 
 processResources{
-	eachFile { file ->
-		if (!(file.getPath().endsWith('png') || file.getPath().endsWith('obj'))){
-			expand version: version, mcversion: minecraft.minecraftVersion
-		}
-	}}
+    eachFile { file ->
+        if (!(file.getPath().endsWith('png'))){
+            expand version: version, mcversion: minecraft.minecraftVersion
+        }
+    }
+}
 
-// because the normal default jar task has been modified to be obfuscated
+//Because the normal default jar task has been modified to be obfuscated
 task deobfJar(type: Jar) {
-	from sourceSets.main.output
-	appendix = 'dev'
+    from sourceSets.main.output
+    appendix = 'dev'
 }
 
 artifacts {
-	archives deobfJar
+    archives deobfJar
 }
