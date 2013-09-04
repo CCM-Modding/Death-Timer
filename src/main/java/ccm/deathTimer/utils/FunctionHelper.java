@@ -126,6 +126,6 @@ public class FunctionHelper
 
     public static void sendChat(ICommandSender sender, String msg, Object... objects)
     {
-        sender.sendChatToPlayer(ChatMessageComponent.func_111077_e(String.format(msg, objects)));
+        sender.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions(msg, objects));
     }
 }
