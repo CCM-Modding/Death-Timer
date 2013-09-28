@@ -50,6 +50,8 @@ public class EventTracker implements IPlayerTracker
         }
         for (Pair<Long, DeathTimer> p : toRemove)
         {
+            p.getValue().time = -1;
+            p.getValue().sendAutoUpdate();
             EventTracker.ChuncksToTrackMap.remove(p.key, p.value);
         }
 
