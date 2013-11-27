@@ -1,17 +1,17 @@
 package ccm.deathTimer.commands;
 
-import ccm.deathTimer.api.HardStopwatchAPI;
-import ccm.deathTimer.server.ServerTimer;
-import ccm.deathTimer.timerTypes.IStopwatchBase;
+import static ccm.deathTimer.utils.FunctionHelper.sendChat;
+
+import java.util.List;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumChatFormatting;
-
-import java.util.List;
-
-import static ccm.deathTimer.utils.FunctionHelper.sendChat;
+import ccm.deathTimer.api.HardStopwatchAPI;
+import ccm.deathTimer.server.ServerTimer;
+import ccm.deathTimer.timerTypes.IStopwatchBase;
 
 /**
  * You need OP to change server wide settings, Client only changes are send back via packets and are saved in the client config.
@@ -188,5 +188,12 @@ public class Stopwatch extends CommandBase
     public String getCommandUsage(final ICommandSender icommandsender)
     {
         return "Add, change or remove a stopwatch.";
+    }
+
+    @Override
+    public int compareTo(Object o)
+    {
+        // TODO Auto-generated method stub
+        return 0;
     }
 }

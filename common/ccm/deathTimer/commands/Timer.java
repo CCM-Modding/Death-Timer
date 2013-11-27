@@ -1,20 +1,20 @@
 package ccm.deathTimer.commands;
 
+import static ccm.deathTimer.utils.FunctionHelper.sendChat;
+
+import java.util.List;
+
+import net.minecraft.command.CommandBase;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.EnumChatFormatting;
 import ccm.deathTimer.api.HardTimerAPI;
 import ccm.deathTimer.server.ServerTimer;
 import ccm.deathTimer.timerTypes.DeathTimer;
 import ccm.deathTimer.timerTypes.ITimerBase;
 import ccm.deathTimer.timerTypes.PointTimer;
 import ccm.deathTimer.utils.FunctionHelper;
-import net.minecraft.command.CommandBase;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.EnumChatFormatting;
-
-import java.util.List;
-
-import static ccm.deathTimer.utils.FunctionHelper.sendChat;
 
 /**
  * You need OP to change server wide settings, Client only changes are send back via packets and are saved in the client config.
@@ -334,5 +334,12 @@ public class Timer extends CommandBase
     public String getCommandUsage(final ICommandSender icommandsender)
     {
         return "Add, change or remove a timer.";
+    }
+
+    @Override
+    public int compareTo(Object o)
+    {
+        // TODO Auto-generated method stub
+        return 0;
     }
 }
