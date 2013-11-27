@@ -1,35 +1,66 @@
+// CCM Modding, Death Timer
 buildscript {
     repositories {
         mavenCentral()
         maven {
-            url "https://oss.sonatype.org/content/repositories/snapshots"
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
         }
     }
-    dependencies {
-        classpath 'com.github.abrarsyed.gmcp:GMCP:0.7.4-SNAPSHOT'
+    dependencies { 
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT' 
     }
 }
 
-apply plugin: "gmcp"
+apply plugin: "forge"
 
-version = "1.1.0.${System.env.BUILD_NUMBER}"
-archivesBaseName = 'DeathTimer'
-minecraft.minecraftVersion = '1.6.2'
+group = 'ccm.deathtimer'
+version = "1.1.0.${System.getenv().BUILD_NUMBER}"
+archivesBaseName = 'Death-Timer'
 
-processResources{
-    eachFile { file ->
-        if (!(file.getPath().endsWith('png'))){
-            expand version: version, mcversion: minecraft.minecraftVersion
-        }
+sourceSets {
+    main {
+        java { srcDir 'common' }
+        resources { srcDir 'resources' }
     }
 }
 
-//Because the normal default jar task has been modified to be obfuscated
-task deobfJar(type: Jar) {
-    from sourceSets.main.output
-    appendix = 'dev'
+minecraft {
+    version = "1.6.4-LATEST"
+    assetDir = "run/assets"
 }
 
-artifacts {
-    archives deobfJar
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        include '**/*.info'
+        expand version: version, mcversion: minecraft.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude '**/*.info'
+    }
+}
+
+jar {
+    appendix = 'universal'
+    manifest {
+        attributes 'MCVersion' : project.minecraft.version
+        attributes 'Version' : project.version
+    }
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    appendix = 'src'
+}
+
+// Doesn't work for some odd reason
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    appendix = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+artifacts { 
+    archives sourceJar 
+    //archives javadocJar
 }
